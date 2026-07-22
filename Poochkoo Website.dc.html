@@ -34,15 +34,15 @@
   <header style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.94); backdrop-filter:blur(8px); border-bottom:1px solid #E4D8C4;">
     <div style="max-width:1240px; margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
       <div onClick="{{ goHome }}" style="display:flex; align-items:center; gap:12px; cursor:pointer;">
-        <img src="assets/poochkoo-icon.png" alt="Poochkoo logo" style="width:52px; height:52px; border-radius:50%; object-fit:cover;">
-        <div style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:21px; color:{{ accent }}; letter-spacing:0.3px;">Poochkoo</div>
+        <img src="assets/poochkoo-icon.png" alt="Poochkoo logo" style="width:{{ logoSize }}px; height:{{ logoSize }}px; border-radius:50%; object-fit:cover;">
+        <div style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:{{ logoFontSize }}px; color:{{ accent }}; letter-spacing:0.3px;">Poochkoo</div>
       </div>
-      <nav style="display:flex; align-items:center; gap:4px;" hint-placeholder-count="4">
+      <nav style="display:flex; align-items:center; gap:4px; flex-wrap:wrap; justify-content:flex-end;" hint-placeholder-count="4">
         <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="4">
           <button onClick="{{ item.go }}" style="{{ item.style }}">{{ item.label }}</button>
         </sc-for>
         <div style="position:relative;" onMouseEnter="{{ openBranchMenu }}" onMouseLeave="{{ closeBranchMenu }}">
-          <button style="{{ branchNavStyle }}">Branches ▾</button>
+          <button onClick="{{ toggleBranchMenu }}" style="{{ branchNavStyle }}">Branches ▾</button>
           <sc-if value="{{ branchMenuOpen }}" hint-placeholder-val="{{ false }}">
             <div style="position:absolute; top:100%; right:0; background:#FFFFFF; border:1px solid #E4D8C4; box-shadow:0 12px 32px rgba(27,21,17,0.14); min-width:220px; z-index:60; padding:6px;">
               <sc-for list="{{ centres }}" as="c" hint-placeholder-count="6">
@@ -63,15 +63,15 @@
   <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
     <main>
       <!-- HERO: full-bleed video banner -->
-      <section style="position:relative; width:100%; height:640px; overflow:hidden;">
+      <section style="position:relative; width:100%; height:{{ heroHeight }}px; overflow:hidden;">
                 <video ref="{{ heroVideoRef }}" autoplay="autoplay" muted="muted" loop="loop" playsinline="playsinline" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
           <source src="uploads/Book Your Boarding Now (1).mp4" type="video/mp4">
         </video>
         <div style="position:absolute; inset:0; background:{{ heroGradient }};"></div>
         <button onClick="{{ toggleMute }}" title="{{ muteLabel }}" style="position:absolute; top:24px; right:32px; z-index:2; width:44px; height:44px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.6); background:rgba(27,21,17,0.35); backdrop-filter:blur(4px); color:#fff; font-size:17px; cursor:pointer; display:flex; align-items:center; justify-content:center;">{{ muteIcon }}</button>
-        <div style="position:absolute; bottom:0; left:0; right:0; padding:0 32px 72px; text-align:center;">
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:0 {{ heroPadX }}px {{ heroPadBottom }}px; text-align:center;">
           <div style="color:#D9B36B; font-weight:600; font-size:13px; letter-spacing:2px; text-transform:uppercase; margin-bottom:18px;">Trusted since 2020</div>
-          <h1 style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:48px; line-height:1.14; color:#fff; margin:0 0 30px;">Your pet-care partner<br>for life.</h1>
+          <h1 style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:{{ heroTitleSize }}px; line-height:1.14; color:#fff; margin:0 0 30px;">Your pet-care partner<br>for life.</h1>
           <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
             <button onClick="{{ goEnquiry }}" style="background:{{ accent }}; color:#fff; border:none; padding:16px 32px; border-radius:999px; font-weight:600; font-size:14px; letter-spacing:0.4px; text-transform:uppercase; cursor:pointer;">Enquire Now</button>
           </div>
@@ -79,7 +79,7 @@
       </section>
 
       <!-- SERVICES -->
-      <section style="max-width:1240px; margin:0 auto; padding:96px 0 32px;">
+      <section style="max-width:1240px; margin:0 auto; padding:{{ sectionPadTop }}px 0 32px;">
         <div style="display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:40px; gap:24px; flex-wrap:wrap; padding:0 32px;">
           <div>
             <div style="color:#A9812F; font-weight:600; font-size:12px; letter-spacing:2px; text-transform:uppercase; margin-bottom:12px;">What we do</div>
@@ -218,7 +218,7 @@
         
         <h1 style="font-family:'Bricolage Grotesque',sans-serif; font-size:40px; font-weight:600; margin:0; color:{{ accent }};">About Poochkoo!</h1>
       </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; margin-bottom:80px;">
+      <div style="display:grid; grid-template-columns:{{ aboutGridCols }}; gap:48px; align-items:center; margin-bottom:80px;">
 <img src="uploads/IMG_0721 Copy Copy.JPG" alt="Poochkoo team with pets" style="width:100%; aspect-ratio:1/0.85; object-fit:cover; border-radius:16px;">
         <div>
           <p style="font-size:16px; line-height:1.75; color:#443B31; margin:0 0 18px;">Poochkoo started in 2020 with one belief: every pet deserves care as good as home. What began as a small boarding home in Bangalore has grown into a trusted network across Bangalore, Hosur and Pune — built entirely on word-of-mouth from happy pet parents.</p>
@@ -263,31 +263,31 @@
         <h1 style="font-family:'Bricolage Grotesque',sans-serif; font-size:36px; font-weight:600; margin:0; color:{{ accent }};">Let us help you out!</h1>
         <p style="font-size:15px; color:#6B5D4E; margin:12px 0 0;">Enquire now &amp; the team will get in touch with you</p>
       </div>
-      <div style="display:grid; grid-template-columns:1.3fr 1fr; gap:1px; background:#E4D8C4; border:1px solid #E4D8C4; align-items:stretch;">
+      <div style="display:grid; grid-template-columns:{{ enquiryOuterCols }}; gap:1px; background:#E4D8C4; border:1px solid #E4D8C4; align-items:stretch;">
         <sc-if value="{{ !enquirySubmitted }}" hint-placeholder-val="{{ true }}">
           <form onSubmit="{{ handleEnquirySubmit }}" style="background:#FFFFFF; padding:40px; display:flex; flex-direction:column; gap:18px;">
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+            <div style="display:grid; grid-template-columns:{{ gridCols2 }}; gap:18px;">
               <div>
                 <label style="font-size:12px; font-weight:600; letter-spacing:0.4px; text-transform:uppercase; color:#1B1511; display:block; margin-bottom:8px;">Your name</label>
-                <input ref="{{ nameRef }}" required="{{ true }}" type="text" placeholder="Priya Sharma" style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; background:transparent;">
+                <input onChange="{{ onNameChange }}" required="{{ true }}" type="text" placeholder="Priya Sharma" style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; background:transparent;">
               </div>
               <div>
                 <label style="font-size:12px; font-weight:600; letter-spacing:0.4px; text-transform:uppercase; color:#1B1511; display:block; margin-bottom:8px;">Phone number</label>
-                <input ref="{{ phoneRef }}" required="{{ true }}" type="tel" placeholder="98765 43210" style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; background:transparent;">
+                <input onChange="{{ onPhoneChange }}" required="{{ true }}" type="tel" placeholder="98765 43210" style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; background:transparent;">
               </div>
             </div>
             <div>
               
               
             </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+            <div style="display:grid; grid-template-columns:{{ gridCols2 }}; gap:18px;">
               <div>
                 <label style="font-size:12px; font-weight:600; letter-spacing:0.4px; text-transform:uppercase; color:#1B1511; display:block; margin-bottom:8px;">PET NAME</label>
-                <input ref="{{ petNameRef }}" type="text" placeholder="e.g. Labrador" style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; background:transparent;">
+                <input onChange="{{ onPetNameChange }}" type="text" placeholder="e.g. Labrador" style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; background:transparent;">
               </div>
               <div>
                 <label style="font-size:12px; font-weight:600; letter-spacing:0.4px; text-transform:uppercase; color:#1B1511; display:block; margin-bottom:8px;">Service needed</label>
-                <select ref="{{ serviceRef }}" style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; background:transparent;">
+                <select onChange="{{ onServiceChange }}" style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; background:transparent;">
                   <option value="" selected="{{ true }}" disabled="{{ true }}">Select a service</option>
                   <option>Boarding</option>
                   <option>Grooming</option>
@@ -297,10 +297,10 @@
                 </select>
               </div>
             </div>
-            <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
+            <div style="display:grid; grid-template-columns:{{ gridCols2 }}; gap:18px;">
               <div>
                 <label style="font-size:12px; font-weight:600; letter-spacing:0.4px; text-transform:uppercase; color:#1B1511; display:block; margin-bottom:8px;">Preferred centre</label>
-                <select ref="{{ centreRef }}" style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; background:transparent;">
+                <select onChange="{{ onCentreChange }}" style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; background:transparent;">
                   <option value="" selected="{{ true }}" disabled="{{ true }}">Select a centre</option>
                   <sc-for list="{{ centres }}" as="c" hint-placeholder-count="5">
                     <option>{{ c.name }}</option>
@@ -311,7 +311,7 @@
             </div>
             <div>
               <label style="font-size:12px; font-weight:600; letter-spacing:0.4px; text-transform:uppercase; color:#1B1511; display:block; margin-bottom:8px;">Anything else we should know?</label>
-              <textarea ref="{{ messageRef }}" rows="3" placeholder="Allergies, temperament, special requests..." style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; resize:vertical; background:transparent;"></textarea>
+              <textarea onChange="{{ onMessageChange }}" rows="3" placeholder="Allergies, temperament, special requests..." style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; resize:vertical; background:transparent;"></textarea>
             </div>
             <button type="submit" style="width:fit-content; background:{{ accent }}; color:#fff; border:none; padding:16px 32px; border-radius:999px; font-weight:600; font-size:14px; letter-spacing:0.4px; text-transform:uppercase; cursor:pointer; margin-top:10px;">Send Enquiry</button>
           </form>
@@ -352,11 +352,11 @@
 
   <!-- FOOTER -->
   <footer style="background:{{ accent }}; padding:18px 32px 10px; position:relative;">
-    <div style="max-width:1240px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:12px;">
+    <div style="max-width:1240px; margin:0 auto; display:flex; flex-direction:{{ footerDirection }}; align-items:center; justify-content:space-between; gap:16px; margin-bottom:12px;">
       <div style="width:84px; height:84px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:-46px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
         <img src="assets/poochkoo-icon.png" alt="Poochkoo logo" style="width:66px; height:66px; border-radius:50%; object-fit:cover;">
       </div>
-      <div style="text-align:right;">
+      <div style="text-align:{{ footerTextAlign }};">
         <h4 style="color:#FBF6EF; font-size:9.5px; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin:0 0 6px;">Reach Us</h4>
         <div style="display:flex; flex-direction:column; gap:3px;">
           <span style="color:#FBF6EF; font-size:11px;">+91 73490 61004</span>
@@ -378,7 +378,13 @@ class Component extends DCLogic {
     branchMenuOpen: false,
     centrePhotoIdx: {},
     heroMuted: true,
+    isMobile: typeof window !== 'undefined' && window.innerWidth <= 720,
   };
+
+  componentDidMount() {
+    this.onResize = () => this.setState({ isMobile: window.innerWidth <= 720 });
+    window.addEventListener('resize', this.onResize);
+  }
 
   heroVideoEl = null;
   heroOutroCutoff = 26.24;
@@ -413,7 +419,7 @@ class Component extends DCLogic {
   ];
   services = [
     { title: 'Boarding', desc: 'Stress free overnight stays with home-cooked meals, daily playtime and video updates.', image: 'uploads/WhatsApp Image 2025-11-29 at 10.59.56 AM.jpeg' },
-    { title: 'Day Care', desc: 'Got to go to work & do not want to leave your pet home alone. Drop your pet for day care with us.', image: 'uploads/WhatsApp Image 2026-07-22 at 2.47.28 AM.jpeg', imgPosition: '60% 55%' },
+    { title: 'Day Care', desc: 'Got to go to work & do not want to leave your pet home alone. Drop your pet for day care with us.', image: 'uploads/WhatsApp Image 2026-07-22 at 11.47.32 AM.jpeg', imgPosition: 'center 65%' },
     { title: 'Grooming', desc: 'Bath, blow-dry, breed-specific trims and gentle nail care by trained groomers.', image: 'uploads/WhatsApp Image 2026-07-22 at 2.49.50 AM.jpeg', imgPosition: '45% 65%' },
     { title: 'Swimming', desc: 'Supervised pool sessions for exercise, joint health and pure tail-wagging fun.', image: 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0084.jpg' },
     { title: 'Bark Park', desc: 'Open-play sessions where pets socialise, run and burn off energy together.', image: 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0193.jpg' },
@@ -444,14 +450,14 @@ class Component extends DCLogic {
       const slug = c.name.toLowerCase().replace(/poochkoo\s*/, '').trim().replace(/\s+/g, '-');
       return {
         ...c,
-        pageUrl: `poochkoo-${slug}.dc.html`,
+        pageUrl: `poochkoo-${slug}`,
         activePhoto: photos[current] || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBTAA7',
         photoDisplay: photos.length ? 'block' : 'none',
         imgRef: (el) => { if (el) { this.centreImgEls[c.name] = el; el.src = photos[current] || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBTAA7'; } },
         photoDots: photos.map((p, i) => ({ color: i === current ? '#D9B36B' : 'rgba(255,255,255,0.5)' })),
         prevPhoto: () => this.prevCentrePhoto(c.name, count, photos),
         nextPhoto: () => this.nextCentrePhoto(c.name, count, photos),
-        gotoPage: () => { window.location.href = `poochkoo-${slug}.dc.html`; },
+        gotoPage: () => { window.location.href = `poochkoo-${slug}`; },
         stop: (e) => e.stopPropagation(),
         bookNow: (e) => { e.stopPropagation(); this.goEnquiry(); },
         prevPhotoStop: (e) => { e.stopPropagation(); this.prevCentrePhoto(c.name, count, photos); },
@@ -462,7 +468,10 @@ class Component extends DCLogic {
   teamRailRef = (el) => { this.teamRail = el; };
   scrollTeamPrev = () => { if (this.teamRail) this.teamRail.scrollBy({ left: -300, behavior: 'smooth' }); };
   scrollTeamNext = () => { if (this.teamRail) this.teamRail.scrollBy({ left: 300, behavior: 'smooth' }); };
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    if (this.onResize) window.removeEventListener('resize', this.onResize);
+  }
+  toggleBranchMenu = () => this.setState(s => ({ branchMenuOpen: !s.branchMenuOpen }));
   goHome = () => this.setState({ page: 'home' });
   goAbout = () => this.setState({ page: 'about' });
   goCentres = () => this.setState({ page: 'centres' });
@@ -470,21 +479,38 @@ class Component extends DCLogic {
   closeBranchMenu = () => this.setState({ branchMenuOpen: false });
   goEnquiry = () => this.setState({ page: 'enquiry' });
   GCHAT_WEBHOOK = 'https://chat.googleapis.com/v1/spaces/AAAAi8y7A2A/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=sHKKxYm3Wa0JeGr8EmXIzSDr8C9sQ8OC_-RewMiVozc';
-  nameRef = (el) => { this.nameEl = el; };
-  phoneRef = (el) => { this.phoneEl = el; };
-  petNameRef = (el) => { this.petNameEl = el; };
-  serviceRef = (el) => { this.serviceEl = el; };
-  centreRef = (el) => { this.centreEl = el; };
-  messageRef = (el) => { this.messageEl = el; };
+  GFORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSf0vB04-FTU-lm2lERBZdIEgs15ocBUPNbhvZzRvebQx-mJRA/formResponse';
+  GFORM_ENTRIES = { name: 'entry.1261291780', phone: 'entry.206604723', petName: 'entry.351771611', service: 'entry.1226167323', centre: 'entry.1937026452', message: 'entry.287525320' };
+  formVals = { name: '', phone: '', petName: '', service: '', centre: '', message: '' };
+  onNameChange = (e) => { this.formVals.name = e.target.value; };
+  onPhoneChange = (e) => { this.formVals.phone = e.target.value; };
+  onPetNameChange = (e) => { this.formVals.petName = e.target.value; };
+  onServiceChange = (e) => { this.formVals.service = e.target.value; };
+  onCentreChange = (e) => { this.formVals.centre = e.target.value; };
+  onMessageChange = (e) => { this.formVals.message = e.target.value; };
   handleEnquirySubmit = (e) => {
     e.preventDefault();
-    const val = (el) => (el && el.value) ? el.value.trim() : '';
-    const text = `🐾 New Poochkoo Enquiry\nName: ${val(this.nameEl) || '-'}\nPhone: ${val(this.phoneEl) || '-'}\nPet: ${val(this.petNameEl) || '-'}\nService: ${val(this.serviceEl) || '-'}\nCentre: ${val(this.centreEl) || '-'}\nMessage: ${val(this.messageEl) || '-'}`;
+    const f = this.formVals;
+    const text = `🐾 New Poochkoo Enquiry\nName: ${f.name.trim() || '-'}\nPhone: ${f.phone.trim() || '-'}\nPet: ${f.petName.trim() || '-'}\nService: ${f.service.trim() || '-'}\nCentre: ${f.centre.trim() || '-'}\nMessage: ${f.message.trim() || '-'}`;
     fetch(this.GCHAT_WEBHOOK, {
       method: 'POST',
       mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({ text }),
+    }).catch(() => {});
+    const en = this.GFORM_ENTRIES;
+    const params = new URLSearchParams();
+    params.append(en.name, f.name.trim());
+    params.append(en.phone, f.phone.trim());
+    params.append(en.petName, f.petName.trim());
+    params.append(en.service, f.service.trim());
+    params.append(en.centre, f.centre.trim());
+    params.append(en.message, f.message.trim());
+    fetch(this.GFORM_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params.toString(),
     }).catch(() => {});
     this.setState({ enquirySubmitted: true });
   };
@@ -502,7 +528,8 @@ class Component extends DCLogic {
       : heroMood === 'minimal'
       ? 'linear-gradient(180deg, rgba(27,21,17,0.05) 0%, rgba(27,21,17,0.55) 100%)'
       : 'linear-gradient(180deg, rgba(27,21,17,0.1) 0%, rgba(27,21,17,0.8) 100%)';
-    const navStyle = (active) => `background:none; border:none; padding:10px 16px; font-weight:600; font-size:13.5px; letter-spacing:0.2px; cursor:pointer; color:${active ? accent : '#241C16'}; border-bottom:${active ? '2px solid ' + accent : '2px solid transparent'};`;
+    const isMobile = this.state.isMobile;
+    const navStyle = (active) => `background:none; border:none; padding:${isMobile ? '6px 8px' : '10px 16px'}; font-weight:600; font-size:${isMobile ? '12px' : '13.5px'}; letter-spacing:0.2px; cursor:pointer; color:${active ? accent : '#241C16'}; border-bottom:${active ? '2px solid ' + accent : '2px solid transparent'};`;
     return {
       isHome: page === 'home',
       isAbout: page === 'about',
@@ -514,10 +541,25 @@ class Component extends DCLogic {
       muteIcon: this.state.heroMuted ? '🔇' : '🔊',
       muteLabel: this.state.heroMuted ? 'Unmute video' : 'Mute video',
       accent, cardShapeStyle, cardClipPath, centreCardStyle, heroGradient,
+      isMobile,
       branchMenuOpen: this.state.branchMenuOpen,
-      openBranchMenu: this.openBranchMenu,
-      closeBranchMenu: this.closeBranchMenu,
-      branchNavStyle: `background:none; border:none; padding:10px 16px; font-weight:600; font-size:13.5px; letter-spacing:0.2px; cursor:pointer; color:#241C16; border-bottom:2px solid transparent;`,
+      openBranchMenu: isMobile ? (() => {}) : this.openBranchMenu,
+      closeBranchMenu: isMobile ? (() => {}) : this.closeBranchMenu,
+      toggleBranchMenu: this.toggleBranchMenu,
+      branchNavStyle: `background:none; border:none; padding:${isMobile ? '6px 8px' : '10px 16px'}; font-weight:600; font-size:${isMobile ? '12px' : '13.5px'}; letter-spacing:0.2px; cursor:pointer; color:#241C16; border-bottom:2px solid transparent; white-space:nowrap;`,
+      logoSize: isMobile ? 38 : 52,
+      logoFontSize: isMobile ? 17 : 21,
+      heroHeight: isMobile ? 460 : 640,
+      heroTitleSize: isMobile ? 30 : 48,
+      heroPadX: isMobile ? 20 : 32,
+      heroPadBottom: isMobile ? 44 : 72,
+      sectionPadTop: isMobile ? 56 : 96,
+      gridCols2: isMobile ? '1fr' : '1fr 1fr',
+      enquiryOuterCols: isMobile ? '1fr' : '1.3fr 1fr',
+      aboutGridCols: isMobile ? '1fr' : '1fr 1fr',
+      footerDirection: isMobile ? 'column' : 'row',
+      footerTextAlign: isMobile ? 'center' : 'right',
+      footerGap: isMobile ? '16px' : '16px',
       navItems: [
         { label: 'Home', go: this.goHome, style: navStyle(page === 'home') },
         { label: 'About Us', go: this.goAbout, style: navStyle(page === 'about') },
@@ -567,6 +609,12 @@ class Component extends DCLogic {
       ],
       enquirySubmitted: this.state.enquirySubmitted,
       handleEnquirySubmit: this.handleEnquirySubmit,
+      onNameChange: this.onNameChange,
+      onPhoneChange: this.onPhoneChange,
+      onPetNameChange: this.onPetNameChange,
+      onServiceChange: this.onServiceChange,
+      onCentreChange: this.onCentreChange,
+      onMessageChange: this.onMessageChange,
     };
   }
 }

@@ -1,0 +1,10 @@
+{
+  "rewrites": [
+    { "source": "/poochkoo-indiranagar", "destination": "/poochkoo-indiranagar.dc.html" },
+    { "source": "/poochkoo-koramangala", "destination": "/poochkoo-koramangala.dc.html" },
+    { "source": "/poochkoo-rt-nagar", "destination": "/poochkoo-rt-nagar.dc.html" },
+    { "source": "/poochkoo-whitefield", "destination": "/poochkoo-whitefield.dc.html" },
+    { "source": "/poochkoo-pune", "destination": "/poochkoo-pune.dc.html" },
+    { "source": "/poochkoo-electronic-city", "destination": "/poochkoo-electronic-city.dc.html" }
+  ]
+}
