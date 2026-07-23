@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <title>Poochkoo Branches · Dog &amp; Cat Boarding, Grooming, Day Care Centres in Bangalore &amp; Pune</title>
+  <meta name="description" content="Find your nearest Poochkoo pet care centre in Bangalore and Pune — Indiranagar, Koramangala, RT Nagar, Whitefield, Electronic City and Pune. Boarding, grooming, day care & more.">
+  <link rel="canonical" href="https://www.poochkoo.com/branches">
+  <meta property="og:title" content="Poochkoo Branches · Find a Centre Near You">
+  <meta property="og:description" content="Six Poochkoo pet care centres across Bangalore and Pune.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.poochkoo.com/branches">
+  <meta property="og:image" content="https://www.poochkoo.com/assets/poochkoo-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: #FFFFFF; }
+    a { color: #7A1414; text-decoration: none; }
+    a:hover { color: #4E0D0D; }
+    * { box-sizing: border-box; }
+  </style>
+</helmet>
+
+<div style="font-family:'Bricolage Grotesque',sans-serif; color:#241C16; background:#FFFFFF; min-height:100vh; width:100%; overflow-x:hidden;">
+
+  <!-- NAV -->
+  <header style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.94); backdrop-filter:blur(8px); border-bottom:1px solid #E4D8C4;">
+    <div style="max-width:1240px; margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
+      <a href="/" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
+        <img src="assets/poochkoo-icon.png" alt="Poochkoo logo" style="width:{{ logoSize }}px; height:{{ logoSize }}px; border-radius:50%; object-fit:cover;">
+        <div style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:{{ logoFontSize }}px; color:{{ accent }}; letter-spacing:0.3px;">Poochkoo</div>
+      </a>
+      <nav style="display:flex; align-items:center; gap:4px; flex-wrap:wrap; justify-content:flex-end;" hint-placeholder-count="4">
+        <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="3">
+          <a href="{{ item.href }}" style="{{ item.style }}">{{ item.label }}</a>
+        </sc-for>
+        <div style="position:relative;" onMouseEnter="{{ openBranchMenu }}" onMouseLeave="{{ closeBranchMenu }}">
+          <button onClick="{{ toggleBranchMenu }}" style="{{ branchActiveStyle }}">Branches ▾</button>
+          <sc-if value="{{ branchMenuOpen }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute; top:100%; right:0; background:#FFFFFF; border:1px solid #E4D8C4; box-shadow:0 12px 32px rgba(27,21,17,0.14); min-width:220px; z-index:60; padding:6px;">
+              <sc-for list="{{ centres }}" as="c" hint-placeholder-count="6">
+                <a href="{{ c.pageUrl }}" style="display:block; padding:10px 14px; font-size:13px; font-weight:600; color:#241C16; border-radius:6px;" style-hover="background:#FBF6EF; color:{{ accent }};">{{ c.name }}</a>
+              </sc-for>
+              <div style="border-top:1px solid #E4D8C4; margin:6px 0 0; padding-top:6px;">
+                <a href="/branches" style="display:block; width:fit-content; text-align:left; padding:10px 14px; font-size:13px; font-weight:700; color:{{ accent }}; border-radius:6px;">View All Branches</a>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main style="max-width:1240px; margin:0 auto; padding:80px 32px 96px;">
+    <div style="text-align:center; margin-bottom:52px;">
+      <h1 style="font-family:'Bricolage Grotesque',sans-serif; font-size:36px; font-weight:600; margin:0; color:{{ accent }};">Poochkoo Branches</h1>
+      <p style="font-size:15px; color:#6B5D4E; margin:12px 0 0;">Find a Poochkoo near you!</p>
+    </div>
+    <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:20px;">
+      <sc-for list="{{ centres }}" as="c" hint-placeholder-count="6">
+        <div onClick="{{ c.gotoPage }}" style="background:#FFFFFF; border:1px solid #E4D8C4; flex:1 1 300px; max-width:380px; cursor:pointer; transition:transform 0.18s ease, box-shadow 0.18s ease; border-radius:18px; overflow:hidden;" style-hover="transform:translateY(-4px); box-shadow:0 16px 32px rgba(27,21,17,0.12);">
+          <div style="width:100%; height:190px; position:relative; overflow:hidden; background:repeating-linear-gradient(135deg, #EFE7D6, #EFE7D6 14px, #E7DBC1 14px, #E7DBC1 28px);">
+            <div style="width:100%; height:100%; position:relative;">
+              <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-family:monospace; color:#8A7550; font-size:12px;">[ photo: {{ c.name }} ]</div>
+              <img ref="{{ c.imgRef }}" alt="{{ c.name }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:{{ c.photoDisplay }};">
+            </div>
+            <div style="position:absolute; top:12px; left:12px; background:#1B1511; color:#D9B36B; font-size:10.5px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; padding:6px 10px;">{{ c.city }}</div>
+            <button onClick="{{ c.prevPhotoStop }}" style="position:absolute; left:8px; top:50%; transform:translateY(-50%); width:30px; height:30px; border-radius:50%; border:none; background:rgba(27,21,17,0.55); color:#fff; font-size:14px; cursor:pointer;">←</button>
+            <button onClick="{{ c.nextPhotoStop }}" style="position:absolute; right:8px; top:50%; transform:translateY(-50%); width:30px; height:30px; border-radius:50%; border:none; background:rgba(27,21,17,0.55); color:#fff; font-size:14px; cursor:pointer;">→</button>
+            <div style="position:absolute; bottom:8px; left:0; right:0; display:flex; justify-content:center; gap:5px;">
+              <sc-for list="{{ c.photoDots }}" as="dot" hint-placeholder-count="3">
+                <span style="width:6px; height:6px; border-radius:50%; background:{{ dot.color }};"></span>
+              </sc-for>
+            </div>
+          </div>
+          <div style="padding:22px;">
+            <h3 style="font-family:'Bricolage Grotesque',sans-serif; font-size:18px; font-weight:700; margin:0 0 8px; color:{{ accent }};">{{ c.name }}</h3>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;">
+              <sc-for list="{{ c.serviceTags }}" as="tag" hint-placeholder-count="4">
+                <span style="background:#FBF6EF; border:1px solid #E4D8C4; color:#7A6C58; font-size:10.5px; font-weight:600; padding:4px 10px; border-radius:999px;">{{ tag }}</span>
+              </sc-for>
+            </div>
+            <a href="{{ c.reviewLink }}" target="_blank" onClick="{{ c.stop }}" style="display:flex; align-items:center; gap:5px; margin-bottom:12px; text-decoration:none;">
+              <span style="color:#F7B84F; font-size:13px;">★★★★★</span>
+              <span style="font-size:12px; color:#1B1511; font-weight:600;">{{ c.rating }}</span>
+              <span style="font-size:11.5px; color:#8A7C6C; text-decoration:underline;">({{ c.reviews }} Google reviews)</span>
+            </a>
+            <div style="display:flex; align-items:center; justify-content:space-between; border-top:1px solid #E4D8C4; padding-top:12px; margin-bottom:14px;">
+              <a href="tel:{{ c.phone }}" onClick="{{ c.stop }}" style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:#1B1511; font-weight:600;">📞 {{ c.phone }}</a>
+              <a href="{{ c.mapLink }}" target="_blank" onClick="{{ c.stop }}" style="font-family:'Bricolage Grotesque',sans-serif; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.3px; color:#7A1414; white-space:nowrap;">📍 Location</a>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <a href="{{ c.whatsapp }}" target="_blank" onClick="{{ c.stop }}" style="width:fit-content; display:flex; align-items:center; justify-content:center; gap:6px; background:#25D366; color:#fff; padding:11px 18px; border-radius:999px; font-weight:600; font-size:12.5px; letter-spacing:0.3px; text-transform:uppercase; text-decoration:none;"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width:14px; height:14px;">Chat Now</a>
+              <a href="/enquiry" onClick="{{ c.stop }}" style="width:fit-content; background:{{ accent }}; color:#fff; padding:11px 22px; border-radius:999px; font-weight:600; font-size:12.5px; letter-spacing:0.3px; text-transform:uppercase;">Book Now</a>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer style="background:{{ accent }}; padding:18px 32px 24px; position:relative; text-align:center;">
+    <div style="max-width:1240px; margin:0 auto;">
+      <div style="width:108px; height:108px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin:-70px auto 16px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+        <img src="assets/poochkoo-icon.png" alt="Poochkoo logo" style="width:86px; height:86px; border-radius:50%; object-fit:cover;">
+      </div>
+      <h4 style="color:#FBF6EF; font-size:9.5px; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin:0 0 8px;">Reach Us</h4>
+      <div style="color:#FBF6EF; font-size:11px; line-height:1.7;">+91 73490 61004 &nbsp;·&nbsp; hello@poochkoo.com<br>2A, #60, Century Apartments, 100 Feet Road, Indiranagar,&nbsp;Bengaluru, Karnataka, 560038</div>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    branchMenuOpen: false,
+    centrePhotoIdx: {},
+    isMobile: typeof window !== 'undefined' && window.innerWidth <= 720,
+  };
+  componentDidMount() {
+    this.onResize = () => this.setState({ isMobile: window.innerWidth <= 720 });
+    window.addEventListener('resize', this.onResize);
+  }
+  componentWillUnmount() {
+    if (this.onResize) window.removeEventListener('resize', this.onResize);
+  }
+  centreImgEls = {};
+  updateCentreImg = (name, photos, idx) => { const el = this.centreImgEls[name]; if (el) el.src = photos[idx] || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBTAA7'; };
+  prevCentrePhoto = (name, count, photos) => count > 1 && this.setState(s => {
+    const next = ((s.centrePhotoIdx[name] || 0) - 1 + count) % count;
+    this.updateCentreImg(name, photos, next);
+    return { centrePhotoIdx: { ...s.centrePhotoIdx, [name]: next } };
+  });
+  nextCentrePhoto = (name, count, photos) => count > 1 && this.setState(s => {
+    const next = ((s.centrePhotoIdx[name] || 0) + 1) % count;
+    this.updateCentreImg(name, photos, next);
+    return { centrePhotoIdx: { ...s.centrePhotoIdx, [name]: next } };
+  });
+  withPhotoNav = (centres) => {
+    const idx = this.state.centrePhotoIdx || {};
+    return centres.map(c => {
+      const photos = c.photos || [];
+      const count = Math.max(photos.length, 1);
+      const current = (idx[c.name] || 0) % count;
+      const slug = c.name.toLowerCase().replace(/poochkoo\s*/, '').trim().replace(/\s+/g, '-');
+      return {
+        ...c,
+        pageUrl: `poochkoo-${slug}`,
+        photoDisplay: photos.length ? 'block' : 'none',
+        imgRef: (el) => { if (el) { this.centreImgEls[c.name] = el; el.src = photos[current] || 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBTAA7'; } },
+        photoDots: photos.map((p, i) => ({ color: i === current ? '#D9B36B' : 'rgba(255,255,255,0.5)' })),
+        gotoPage: () => { window.location.href = `poochkoo-${slug}`; },
+        stop: (e) => e.stopPropagation(),
+        prevPhotoStop: (e) => { e.stopPropagation(); this.prevCentrePhoto(c.name, count, photos); },
+        nextPhotoStop: (e) => { e.stopPropagation(); this.nextCentrePhoto(c.name, count, photos); },
+      };
+    });
+  };
+  toggleBranchMenu = () => this.setState(s => ({ branchMenuOpen: !s.branchMenuOpen }));
+  openBranchMenu = () => this.setState({ branchMenuOpen: true });
+  closeBranchMenu = () => this.setState({ branchMenuOpen: false });
+
+  renderVals() {
+    const accent = '#C0181C';
+    const isMobile = this.state.isMobile;
+    const navStyle = (active) => `background:none; border:none; padding:${isMobile ? '6px 8px' : '10px 16px'}; font-weight:600; font-size:${isMobile ? '12px' : '13.5px'}; letter-spacing:0.2px; cursor:pointer; color:${active ? accent : '#241C16'}; border-bottom:${active ? '2px solid ' + accent : '2px solid transparent'}; display:inline-block;`;
+    return {
+      accent, isMobile,
+      logoSize: isMobile ? 38 : 52,
+      logoFontSize: isMobile ? 17 : 21,
+      footerDirection: isMobile ? 'column' : 'row',
+      footerTextAlign: isMobile ? 'center' : 'right',
+      navItems: [
+        { label: 'Home', href: '/', style: navStyle(false) },
+        { label: 'About Us', href: '/about', style: navStyle(false) },
+        { label: 'Enquiry', href: '/enquiry', style: navStyle(false) },
+      ],
+      branchActiveStyle: `background:none; border:none; padding:${isMobile ? '6px 8px' : '10px 16px'}; font-weight:600; font-size:${isMobile ? '12px' : '13.5px'}; letter-spacing:0.2px; cursor:pointer; color:${accent}; border-bottom:2px solid ${accent}; white-space:nowrap;`,
+      branchMenuOpen: this.state.branchMenuOpen,
+      openBranchMenu: isMobile ? (() => {}) : this.openBranchMenu,
+      closeBranchMenu: isMobile ? (() => {}) : this.closeBranchMenu,
+      toggleBranchMenu: this.toggleBranchMenu,
+      centres: this.withPhotoNav([
+        { city: 'Bangalore', name: 'Poochkoo Indiranagar', mapLink: 'https://maps.app.goo.gl/MMMiLLL1HVJTJXwX7', reviewLink: 'https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+Indiranagar/@12.9745473,77.6386849,961m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3bae17c5b973948d:0x84d926ed99de6e5!8m2!3d12.9745421!4d77.6412598!16s%2Fg%2F11x8t3vbzt!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '5.0', reviews: '12', phone: '+91 73490 61004', whatsapp: 'https://wa.me/917349061004', photos: ['uploads/iloveimg-converted (1)/IMG_9612.jpg', 'uploads/iloveimg-converted (1)/IMG_9616.jpg', 'uploads/iloveimg-converted (1)/IMG_9677.jpg'], serviceTags: ['Cat Boarding', 'Pet Cab', 'Pet Events'] },
+        { city: 'Bangalore', name: 'Poochkoo Koramangala', mapLink: 'https://maps.app.goo.gl/andh96VLuaL34Kfe8', reviewLink: 'https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+Koramangala/@12.9357272,77.6142252,962m/data=!3m1!1e3!4m8!3m7!1s0x3bae15b0a542d69b:0xc8c5b0fb094642c2!8m2!3d12.935722!4d77.6168001!9m1!1b1!16s%2Fg%2F11xp7r4y_p!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '4.9', reviews: '60', phone: '+91 63661 23609', whatsapp: 'https://wa.me/916366123609', photos: ['uploads/IMG_9626.jpg', 'uploads/WhatsApp Image 2025-11-22 at 4.02.25 PM.jpeg', 'uploads/WhatsApp Image 2025-11-22 at 4.02.27 PM.jpeg', 'uploads/WhatsApp Image 2025-11-22 at 4.02.29 PM.jpeg', 'uploads/IMG_9621.jpg'], serviceTags: ['Dog Boarding', 'Day Care', 'Grooming', 'Bark Park', 'Pet Cab', 'Pet Events'] },
+        { city: 'Bangalore', name: 'Poochkoo RT Nagar', mapLink: 'https://maps.app.goo.gl/18z8Y9MGvFuwNAnA9', reviewLink: 'https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+RT+Nagar/@13.0266528,77.5899536,961m/data=!3m1!1e3!4m8!3m7!1s0x3bae17320d363411:0x791a21848e6ec6b2!8m2!3d13.0266476!4d77.5925285!9m1!1b1!16s%2Fg%2F11yf4qfw5w!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '5.0', reviews: '96', phone: '+91 73490 61006', whatsapp: 'https://wa.me/917349061006', photos: ['uploads/Main RT Nagar.jpeg', 'uploads/drive-download-20260721T075829Z-1-001/IMG_9654.JPG', 'uploads/drive-download-20260721T075829Z-1-001/WhatsApp Image 2025-11-22 at 3.32.05 PM.jpeg', 'uploads/drive-download-20260721T075829Z-1-001/WhatsApp Image 2025-11-22 at 3.32.04 PM (2).jpeg', 'uploads/drive-download-20260721T075829Z-1-001/WhatsApp Image 2025-11-22 at 3.32.04 PM (1).jpeg', 'uploads/drive-download-20260721T075829Z-1-001/IMG_9667.JPG', 'uploads/drive-download-20260721T075829Z-1-001/WhatsApp Image 2025-11-22 at 3.32.03 PM.jpeg', 'uploads/drive-download-20260721T075829Z-1-001/WhatsApp Image 2025-11-22 at 3.32.04 PM.jpeg'], serviceTags: ['Dog Boarding', 'Day Care', 'Grooming', 'Bark Park', 'Pet Cab', 'Pet Events'] },
+        { city: 'Bangalore', name: 'Poochkoo Whitefield', mapLink: 'https://maps.app.goo.gl/8KtwvsvgBw7V8QYaA', reviewLink: 'https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+Kannamangala/@13.0268818,77.7751308,961m/data=!3m1!1e3!4m8!3m7!1s0xaae893bf16a9fedf:0x519fc859cde12dd0!8m2!3d13.0268766!4d77.7777057!9m1!1b1!16s%2Fg%2F11xmwzbx9c!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '5.0', reviews: '26', phone: '+91 89040 32103', whatsapp: 'https://wa.me/918904032103', photos: ['uploads/drive-download-20260721T222259Z-1-001/1.png', 'uploads/drive-download-20260721T222259Z-1-001/6.png', 'uploads/drive-download-20260721T222259Z-1-001/8.png', 'uploads/drive-download-20260721T222259Z-1-001/9.png'], serviceTags: ['Dog Boarding', 'Day Care', 'Grooming', 'Bark Park', 'Pet Cab'] },
+        { city: 'Pune', name: 'Poochkoo Pune', mapLink: 'https://maps.app.goo.gl/ejzu4hy6MbcLwLor8', reviewLink: 'https://www.google.com/maps/place/Poochkoo+Pet+Wada+MH-12/@18.5550934,73.7166638,935m/data=!3m1!1e3!4m8!3m7!1s0x3bc2bda915b0c86b:0x135a2f38376cf276!8m2!3d18.5550884!4d73.7215347!9m1!1b1!16s%2Fg%2F11vssb6rd0!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '4.8', reviews: '214', phone: '+91 87670 48609', whatsapp: 'https://wa.me/918767048609', photos: ['uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0022.jpg', 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0025.jpg', 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0084.jpg', 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0085.jpg', 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0193.jpg'], serviceTags: ['Dog Boarding', 'Cat Boarding', 'Day Care', 'Grooming', 'Bark Park', 'Pet Cab', 'Pet Events'] },
+        { city: 'Bangalore', name: 'Poochkoo Electronic City', mapLink: 'https://maps.app.goo.gl/5EHH61Eh6AsAX3hy5', reviewLink: 'https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+Electronic+City/@12.8284951,77.6390599,962m/data=!3m1!1e3!4m8!3m7!1s0x3bae6ba39f54eda7:0x2389d05fa872a3ef!8m2!3d12.8284899!4d77.6416348!9m1!1b1!16s%2Fg%2F11z92zjpgk!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '5.0', reviews: '5', phone: '+91 89040 42103', whatsapp: 'https://wa.me/918904042103', photos: ['uploads/WhatsApp Image 2026-07-22 at 3.49.35 AM.jpeg'], serviceTags: ['Dog Boarding', 'Day Care', 'Grooming', 'Bark Park', 'Pet Cab', 'Pet Events'] },
+      ]),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
