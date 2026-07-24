@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,7 +23,7 @@
   <meta property="og:description" content="Loving pet boarding, grooming, swimming and pet cab services across Bangalore and Pune.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://poochkoo.com/">
-  <meta property="og:image" content="https://poochkoo.com/assets/poochkoo-icon.png">
+  <meta property="og:image" content="https://poochkoo.com/assets/poochkoo-icon.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
@@ -41,28 +41,44 @@
   <header style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.94); backdrop-filter:blur(8px); border-bottom:1px solid #E4D8C4;">
     <div style="max-width:1240px; margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
       <a href="/" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
-        <img src="assets/poochkoo-icon.png" alt="Poochkoo logo" style="width:{{ logoSize }}px; height:{{ logoSize }}px; border-radius:50%; object-fit:cover;">
+        <img src="assets/poochkoo-icon.webp" alt="Poochkoo logo" style="width:{{ logoSize }}px; height:{{ logoSize }}px; border-radius:50%; object-fit:cover;">
         <div style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:{{ logoFontSize }}px; color:{{ accent }}; letter-spacing:0.3px;">Poochkoo</div>
       </a>
-      <nav style="display:flex; align-items:center; gap:4px; flex-wrap:wrap; justify-content:flex-end;" hint-placeholder-count="4">
-        <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="3">
-          <a href="{{ item.href }}" style="{{ item.style }}">{{ item.label }}</a>
-        </sc-for>
-        <div style="position:relative;" onMouseEnter="{{ openBranchMenu }}" onMouseLeave="{{ closeBranchMenu }}">
-          <button onClick="{{ toggleBranchMenu }}" style="{{ branchNavStyle }}">Branches ▾</button>
-          <sc-if value="{{ branchMenuOpen }}" hint-placeholder-val="{{ false }}">
-            <div style="position:absolute; top:100%; right:0; background:#FFFFFF; border:1px solid #E4D8C4; box-shadow:0 12px 32px rgba(27,21,17,0.14); min-width:220px; z-index:60; padding:6px;">
-              <sc-for list="{{ centres }}" as="c" hint-placeholder-count="6">
-                <a href="{{ c.pageUrl }}" style="display:block; padding:10px 14px; font-size:13px; font-weight:600; color:#241C16; border-radius:6px;" style-hover="background:#FBF6EF; color:{{ accent }};">{{ c.name }}</a>
-              </sc-for>
-              <div style="border-top:1px solid #E4D8C4; margin:6px 0 0; padding-top:6px;">
-                <a href="/branches" style="display:block; width:fit-content; text-align:left; padding:10px 14px; font-size:13px; font-weight:700; color:{{ accent }}; border-radius:6px;">View All Branches</a>
+      <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ toggleMobileMenu }}" aria-label="Menu" style="background:none; border:none; font-size:26px; line-height:1; color:#241C16; cursor:pointer; padding:4px 6px;">{{ mobileMenuIcon }}</button>
+      </sc-if>
+      <sc-if value="{{ showDesktopNav }}" hint-placeholder-val="{{ true }}">
+        <nav style="display:flex; align-items:center; gap:4px; flex-wrap:wrap; justify-content:flex-end;" hint-placeholder-count="4">
+          <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="3">
+            <a href="{{ item.href }}" style="{{ item.style }}">{{ item.label }}</a>
+          </sc-for>
+          <div style="position:relative;" onMouseEnter="{{ openBranchMenu }}" onMouseLeave="{{ closeBranchMenu }}">
+            <a href="/branches" onClick="{{ toggleBranchMenu }}" style="{{ branchNavStyle }}; text-decoration:none;">Branches ▾</a>
+            <sc-if value="{{ branchMenuOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute; top:100%; right:0; background:#FFFFFF; border:1px solid #E4D8C4; box-shadow:0 12px 32px rgba(27,21,17,0.14); min-width:220px; z-index:60; padding:6px;">
+                <sc-for list="{{ centres }}" as="c" hint-placeholder-count="6">
+                  <a href="{{ c.pageUrl }}" style="display:block; padding:10px 14px; font-size:13px; font-weight:600; color:#241C16; border-radius:6px;" style-hover="background:#FBF6EF; color:{{ accent }};">{{ c.name }}</a>
+                </sc-for>
+                <div style="border-top:1px solid #E4D8C4; margin:6px 0 0; padding-top:6px;">
+                  <a href="/branches" style="display:block; width:fit-content; text-align:left; padding:10px 14px; font-size:13px; font-weight:700; color:{{ accent }}; border-radius:6px;">View All Branches</a>
+                </div>
               </div>
-            </div>
-          </sc-if>
-        </div>
-      </nav>
+            </sc-if>
+          </div>
+        </nav>
+      </sc-if>
     </div>
+    <sc-if value="{{ mobileMenuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; top:100%; left:0; right:0; background:#FFFFFF; border-bottom:1px solid #E4D8C4; box-shadow:0 12px 32px rgba(27,21,17,0.14); padding:8px 20px 16px; display:flex; flex-direction:column; z-index:59;">
+        <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="3">
+          <a href="{{ item.href }}" onClick="{{ closeMobileMenu }}" style="padding:14px 6px; font-size:15px; font-weight:600; color:#241C16; border-bottom:1px solid #F1E9DA; text-decoration:none;">{{ item.label }}</a>
+        </sc-for>
+        <a href="/branches" onClick="{{ closeMobileMenu }}" style="padding:14px 6px; font-size:15px; font-weight:600; color:#241C16; border-bottom:1px solid #F1E9DA; text-decoration:none;">All Branches</a>
+        <sc-for list="{{ centres }}" as="c" hint-placeholder-count="6">
+          <a href="{{ c.pageUrl }}" onClick="{{ closeMobileMenu }}" style="padding:10px 6px 10px 18px; font-size:13.5px; font-weight:500; color:#6B5D4E; text-decoration:none;">{{ c.name }}</a>
+        </sc-for>
+      </div>
+    </sc-if>
   </header>
 
   <main>
@@ -97,7 +113,7 @@
       <div ref="{{ servicesRailRef }}" style="display:flex; gap:20px; overflow-x:auto; scroll-snap-type:x mandatory; padding:4px 32px 20px; scrollbar-width:none;">
         <sc-for list="{{ services }}" as="svc" hint-placeholder-count="6">
           <div style="flex:0 0 300px; scroll-snap-align:start; background:#FFFFFF; border:1px solid #E4D8C4; {{ cardShapeStyle }}">
-            <div style="width:100%; height:200px; position:relative; clip-path:{{ cardClipPath }}; background:repeating-linear-gradient(135deg, #EDE1CD, #EDE1CD 14px, #E6D5B8 14px, #E6D5B8 28px); display:flex; align-items:center; justify-content:center; font-family:monospace; color:#8A7550; font-size:12px; text-align:center; padding:16px; overflow:hidden;">
+            <div style="width:100%; height:200px; position:relative; clip-path:{{ cardClipPath }}; background:repeating-linear-gradient(135deg, #EDE1CD, #EDE1CD 14px, #E6D5B8 14px, #E6D5B8 28px); display:flex; align-items:center; justify-content:center; font-family:monospace; color:#5C4F3F; font-size:12px; text-align:center; padding:16px; overflow:hidden;">
               [ photo: {{ svc.title }} ]
               <img ref="{{ svc.imgRef }}" alt="{{ svc.title }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:{{ svc.imgPosition }}; display:{{ svc.imgDisplay }};">
             </div>
@@ -120,7 +136,7 @@
           <div onClick="{{ c.gotoPage }}" style="background:#FFFFFF; border:1px solid #E4D8C4; flex:1 1 300px; max-width:380px; cursor:pointer; transition:transform 0.18s ease, box-shadow 0.18s ease; {{ centreCardStyle }}" style-hover="transform:translateY(-4px); box-shadow:0 16px 32px rgba(27,21,17,0.12);">
             <div style="width:100%; height:190px; position:relative; overflow:hidden; background:repeating-linear-gradient(135deg, #EFE7D6, #EFE7D6 14px, #E7DBC1 14px, #E7DBC1 28px);">
               <div style="width:100%; height:100%; position:relative;">
-              <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-family:monospace; color:#8A7550; font-size:12px;">[ photo: {{ c.name }} ]</div>
+              <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; font-family:monospace; color:#5C4F3F; font-size:12px;">[ photo: {{ c.name }} ]</div>
               <img ref="{{ c.imgRef }}" alt="{{ c.name }}" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:{{ c.photoDisplay }};">
             </div>
               <div style="position:absolute; top:12px; left:12px; background:#1B1511; color:#D9B36B; font-size:10.5px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; padding:6px 10px;">{{ c.city }}</div>
@@ -136,13 +152,13 @@
               <h3 style="font-family:'Bricolage Grotesque',sans-serif; font-size:18px; font-weight:700; margin:0 0 8px; color:{{ accent }};">{{ c.name }}</h3>
               <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px;">
                 <sc-for list="{{ c.serviceTags }}" as="tag" hint-placeholder-count="4">
-                  <span style="background:#FBF6EF; border:1px solid #E4D8C4; color:#7A6C58; font-size:10.5px; font-weight:600; padding:4px 10px; border-radius:999px;">{{ tag }}</span>
+                  <span style="background:#FBF6EF; border:1px solid #E4D8C4; color:#5C4F3F; font-size:10.5px; font-weight:600; padding:4px 10px; border-radius:999px;">{{ tag }}</span>
                 </sc-for>
               </div>
               <a href="{{ c.reviewLink }}" target="_blank" onClick="{{ c.stop }}" style="display:flex; align-items:center; gap:5px; margin-bottom:12px; text-decoration:none;">
                 <span style="color:#F7B84F; font-size:13px;">★★★★★</span>
                 <span style="font-size:12px; color:#1B1511; font-weight:600;">{{ c.rating }}</span>
-                <span style="font-size:11.5px; color:#8A7C6C; text-decoration:underline;">({{ c.reviews }} Google reviews)</span>
+                <span style="font-size:11.5px; color:#5C4F3F; text-decoration:underline;">({{ c.reviews }} Google reviews)</span>
               </a>
               <div style="display:flex; align-items:center; justify-content:space-between; border-top:1px solid #E4D8C4; padding-top:12px; margin-bottom:14px;">
                 <a href="tel:{{ c.phone }}" onClick="{{ c.stop }}" style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:#1B1511; font-weight:600;">📞 {{ c.phone }}</a>
@@ -163,7 +179,7 @@
   <footer style="background:{{ accent }}; padding:18px 32px 24px; position:relative; text-align:center;">
     <div style="max-width:1240px; margin:0 auto;">
       <div style="width:108px; height:108px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin:-70px auto 16px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
-        <img src="assets/poochkoo-icon.png" alt="Poochkoo logo" style="width:86px; height:86px; border-radius:50%; object-fit:cover;">
+        <img src="assets/poochkoo-icon.webp" alt="Poochkoo logo" style="width:86px; height:86px; border-radius:50%; object-fit:cover;">
       </div>
       <h4 style="color:#FBF6EF; font-size:9.5px; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin:0 0 8px;">Reach Us</h4>
       <div style="color:#FBF6EF; font-size:11px; line-height:1.7;">+91 73490 61004 &nbsp;·&nbsp; hello@poochkoo.com<br>2A, #60, Century Apartments, 100 Feet Road, Indiranagar,&nbsp;Bengaluru, Karnataka, 560038</div>
@@ -176,6 +192,7 @@
 class Component extends DCLogic {
   state = {
     branchMenuOpen: false,
+    mobileMenuOpen: false,
     centrePhotoIdx: {},
     heroMuted: true,
     isMobile: typeof window !== 'undefined' && window.innerWidth <= 720,
@@ -212,13 +229,13 @@ class Component extends DCLogic {
     });
   };
   services = [
-    { title: 'Boarding', desc: 'Stress free overnight stays with home-cooked meals, daily playtime and video updates.', image: 'uploads/WhatsApp Image 2025-11-29 at 10.59.56 AM.jpeg' },
-    { title: 'Day Care', desc: 'Got to go to work & do not want to leave your pet home alone. Drop your pet for day care with us.', image: 'uploads/WhatsApp Image 2026-07-22 at 11.47.32 AM.jpeg', imgPosition: 'center 65%' },
-    { title: 'Grooming', desc: 'Bath, blow-dry, breed-specific trims and gentle nail care by trained groomers.', image: 'uploads/WhatsApp Image 2026-07-22 at 2.49.50 AM.jpeg', imgPosition: '45% 65%' },
-    { title: 'Swimming', desc: 'Supervised pool sessions for exercise, joint health and pure tail-wagging fun.', image: 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0084.jpg' },
-    { title: 'Bark Park', desc: 'Open-play sessions where pets socialise, run and burn off energy together.', image: 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0193.jpg' },
-    { title: 'Pet Cab', desc: 'Safe, comfortable pickup & drop so your pet never travels stressed.', image: 'uploads/IMG_8474.jpg', imgPosition: '35% 45%' },
-    { title: 'Pet Events', desc: 'Meetups, parties and community days made for pets and their parents.', image: 'uploads/IMG20240427124646.jpg' },
+    { title: 'Boarding', desc: 'Stress free overnight stays with home-cooked meals, daily playtime and video updates.', image: 'uploads/WhatsApp Image 2025-11-29 at 10.59.56 AM.webp' },
+    { title: 'Day Care', desc: 'Got to go to work & do not want to leave your pet home alone. Drop your pet for day care with us.', image: 'uploads/WhatsApp Image 2026-07-22 at 11.47.32 AM.webp', imgPosition: 'center 65%' },
+    { title: 'Grooming', desc: 'Bath, blow-dry, breed-specific trims and gentle nail care by trained groomers.', image: 'uploads/WhatsApp Image 2026-07-22 at 2.49.50 AM.webp', imgPosition: '45% 65%' },
+    { title: 'Swimming', desc: 'Supervised pool sessions for exercise, joint health and pure tail-wagging fun.', image: 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0084.webp' },
+    { title: 'Bark Park', desc: 'Open-play sessions where pets socialise, run and burn off energy together.', image: 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0193.webp' },
+    { title: 'Pet Cab', desc: 'Safe, comfortable pickup & drop so your pet never travels stressed.', image: 'uploads/IMG_8474.webp', imgPosition: '35% 45%' },
+    { title: 'Pet Events', desc: 'Meetups, parties and community days made for pets and their parents.', image: 'uploads/IMG20240427124646.webp' },
   ];
   servicesRailRef = (el) => { this.servicesRail = el; };
   scrollServicesPrev = () => { if (this.servicesRail) this.servicesRail.scrollBy({ left: -320, behavior: 'smooth' }); };
@@ -261,6 +278,8 @@ class Component extends DCLogic {
   toggleBranchMenu = () => this.setState(s => ({ branchMenuOpen: !s.branchMenuOpen }));
   openBranchMenu = () => this.setState({ branchMenuOpen: true });
   closeBranchMenu = () => this.setState({ branchMenuOpen: false });
+  toggleMobileMenu = () => this.setState(s => ({ mobileMenuOpen: !s.mobileMenuOpen }));
+  closeMobileMenu = () => this.setState({ mobileMenuOpen: false });
 
   renderVals() {
     const accent = this.props.accentColor ?? '#C0181C';
@@ -279,6 +298,11 @@ class Component extends DCLogic {
     return {
       accent, cardShapeStyle, cardClipPath, centreCardStyle, heroGradient,
       isMobile,
+      showDesktopNav: !isMobile,
+      mobileMenuOpen: this.state.mobileMenuOpen,
+      mobileMenuIcon: this.state.mobileMenuOpen ? '✕' : '☰',
+      toggleMobileMenu: this.toggleMobileMenu,
+      closeMobileMenu: this.closeMobileMenu,
       heroVideoRef: this.heroVideoRef,
       toggleMute: this.toggleMute,
       muteIcon: this.state.heroMuted ? '🔇' : '🔊',
@@ -287,7 +311,7 @@ class Component extends DCLogic {
       openBranchMenu: isMobile ? (() => {}) : this.openBranchMenu,
       closeBranchMenu: isMobile ? (() => {}) : this.closeBranchMenu,
       toggleBranchMenu: this.toggleBranchMenu,
-      branchNavStyle: `background:none; border:none; padding:${isMobile ? '6px 8px' : '10px 16px'}; font-weight:600; font-size:${isMobile ? '12px' : '13.5px'}; letter-spacing:0.2px; cursor:pointer; color:#241C16; border-bottom:2px solid transparent; white-space:nowrap;`,
+      branchNavStyle: `background:none; border:none; padding:${isMobile ? '6px 8px' : '10px 16px'}; font-weight:600; font-size:${isMobile ? '12px' : '13.5px'}; letter-spacing:0.2px; cursor:pointer; display:inline-block; font-family:inherit; color:#241C16; border-bottom:2px solid transparent; white-space:nowrap;`,
       logoSize: isMobile ? 38 : 52,
       logoFontSize: isMobile ? 17 : 21,
       heroHeight: isMobile ? 460 : 640,
@@ -307,12 +331,12 @@ class Component extends DCLogic {
       scrollServicesPrev: this.scrollServicesPrev,
       scrollServicesNext: this.scrollServicesNext,
       centres: this.withPhotoNav([
-        { city: 'Bangalore', name: 'Poochkoo Indiranagar', address: 'Sarjapur Road, Bengaluru, Karnataka (edit with exact address)', mapLink: 'https://maps.app.goo.gl/MMMiLLL1HVJTJXwX7', reviewLink: 'https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+Indiranagar/@12.9745473,77.6386849,961m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3bae17c5b973948d:0x84d926ed99de6e5!8m2!3d12.9745421!4d77.6412598!16s%2Fg%2F11x8t3vbzt!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '5.0', reviews: '12', phone: '+91 73490 61004', whatsapp: 'https://wa.me/917349061004', photos: ['uploads/iloveimg-converted (1)/IMG_9612.jpg', 'uploads/iloveimg-converted (1)/IMG_9616.jpg', 'uploads/iloveimg-converted (1)/IMG_9677.jpg'], serviceTags: ['Cat Boarding', 'Pet Cab', 'Pet Events'] },
-        { city: 'Bangalore', name: 'Poochkoo Koramangala', address: 'Koramangala, Bengaluru, Karnataka (edit with exact address)', mapLink: 'https://maps.app.goo.gl/andh96VLuaL34Kfe8', reviewLink: 'https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+Koramangala/@12.9357272,77.6142252,962m/data=!3m1!1e3!4m8!3m7!1s0x3bae15b0a542d69b:0xc8c5b0fb094642c2!8m2!3d12.935722!4d77.6168001!9m1!1b1!16s%2Fg%2F11xp7r4y_p!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '4.9', reviews: '60', phone: '+91 63661 23609', whatsapp: 'https://wa.me/916366123609', photos: ['uploads/IMG_9626.jpg', 'uploads/WhatsApp Image 2025-11-22 at 4.02.25 PM.jpeg', 'uploads/WhatsApp Image 2025-11-22 at 4.02.27 PM.jpeg', 'uploads/WhatsApp Image 2025-11-22 at 4.02.29 PM.jpeg', 'uploads/IMG_9621.jpg'], serviceTags: ['Dog Boarding', 'Day Care', 'Grooming', 'Bark Park', 'Pet Cab', 'Pet Events'] },
-        { city: 'Bangalore', name: 'Poochkoo RT Nagar', address: 'RT Nagar, Bengaluru, Karnataka (edit with exact address)', mapLink: 'https://maps.app.goo.gl/18z8Y9MGvFuwNAnA9', reviewLink: 'https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+RT+Nagar/@13.0266528,77.5899536,961m/data=!3m1!1e3!4m8!3m7!1s0x3bae17320d363411:0x791a21848e6ec6b2!8m2!3d13.0266476!4d77.5925285!9m1!1b1!16s%2Fg%2F11yf4qfw5w!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '5.0', reviews: '96', phone: '+91 73490 61006', whatsapp: 'https://wa.me/917349061006', photos: ['uploads/Main RT Nagar.jpeg', 'uploads/drive-download-20260721T075829Z-1-001/IMG_9654.JPG', 'uploads/drive-download-20260721T075829Z-1-001/WhatsApp Image 2025-11-22 at 3.32.05 PM.jpeg', 'uploads/drive-download-20260721T075829Z-1-001/WhatsApp Image 2025-11-22 at 3.32.04 PM (2).jpeg', 'uploads/drive-download-20260721T075829Z-1-001/WhatsApp Image 2025-11-22 at 3.32.04 PM (1).jpeg', 'uploads/drive-download-20260721T075829Z-1-001/IMG_9667.JPG', 'uploads/drive-download-20260721T075829Z-1-001/WhatsApp Image 2025-11-22 at 3.32.03 PM.jpeg', 'uploads/drive-download-20260721T075829Z-1-001/WhatsApp Image 2025-11-22 at 3.32.04 PM.jpeg'], serviceTags: ['Dog Boarding', 'Day Care', 'Grooming', 'Bark Park', 'Pet Cab', 'Pet Events'] },
-        { city: 'Bangalore', name: 'Poochkoo Whitefield', address: 'Kannamangala, Bengaluru, Karnataka (edit with exact address)', mapLink: 'https://maps.app.goo.gl/8KtwvsvgBw7V8QYaA', reviewLink: 'https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+Kannamangala/@13.0268818,77.7751308,961m/data=!3m1!1e3!4m8!3m7!1s0xaae893bf16a9fedf:0x519fc859cde12dd0!8m2!3d13.0268766!4d77.7777057!9m1!1b1!16s%2Fg%2F11xmwzbx9c!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '5.0', reviews: '26', phone: '+91 89040 32103', whatsapp: 'https://wa.me/918904032103', photos: ['uploads/drive-download-20260721T222259Z-1-001/1.png', 'uploads/drive-download-20260721T222259Z-1-001/6.png', 'uploads/drive-download-20260721T222259Z-1-001/8.png', 'uploads/drive-download-20260721T222259Z-1-001/9.png'], serviceTags: ['Dog Boarding', 'Day Care', 'Grooming', 'Bark Park', 'Pet Cab'] },
-        { city: 'Pune', name: 'Poochkoo Pune', address: 'Pune, Maharashtra (edit with exact address)', mapLink: 'https://maps.app.goo.gl/ejzu4hy6MbcLwLor8', reviewLink: 'https://www.google.com/maps/place/Poochkoo+Pet+Wada+MH-12/@18.5550934,73.7166638,935m/data=!3m1!1e3!4m8!3m7!1s0x3bc2bda915b0c86b:0x135a2f38376cf276!8m2!3d18.5550884!4d73.7215347!9m1!1b1!16s%2Fg%2F11vssb6rd0!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '4.8', reviews: '214', phone: '+91 87670 48609', whatsapp: 'https://wa.me/918767048609', photos: ['uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0022.jpg', 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0025.jpg', 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0084.jpg', 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0085.jpg', 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0193.jpg'], serviceTags: ['Dog Boarding', 'Cat Boarding', 'Day Care', 'Grooming', 'Bark Park', 'Pet Cab', 'Pet Events'] },
-        { city: 'Bangalore', name: 'Poochkoo Electronic City', address: 'Electronic City, Bengaluru, Karnataka (edit with exact address)', mapLink: 'https://maps.app.goo.gl/5EHH61Eh6AsAX3hy5', reviewLink: 'https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+Electronic+City/@12.8284951,77.6390599,962m/data=!3m1!1e3!4m8!3m7!1s0x3bae6ba39f54eda7:0x2389d05fa872a3ef!8m2!3d12.8284899!4d77.6416348!9m1!1b1!16s%2Fg%2F11z92zjpgk!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '5.0', reviews: '5', phone: '+91 89040 42103', whatsapp: 'https://wa.me/918904042103', photos: ['uploads/WhatsApp Image 2026-07-22 at 3.49.35 AM.jpeg'], serviceTags: ['Dog Boarding', 'Day Care', 'Grooming', 'Bark Park', 'Pet Cab', 'Pet Events'] },
+        { city: 'Bangalore', name: 'Poochkoo Indiranagar', address: 'Sarjapur Road, Bengaluru, Karnataka (edit with exact address)', mapLink: 'https://maps.app.goo.gl/MMMiLLL1HVJTJXwX7', reviewLink: 'https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+Indiranagar/@12.9745473,77.6386849,961m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3bae17c5b973948d:0x84d926ed99de6e5!8m2!3d12.9745421!4d77.6412598!16s%2Fg%2F11x8t3vbzt!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '5.0', reviews: '12', phone: '+91 73490 61004', whatsapp: 'https://wa.me/917349061004', photos: ['uploads/iloveimg-converted-1/IMG_9612.webp', 'uploads/iloveimg-converted-1/IMG_9616.webp', 'uploads/iloveimg-converted-1/IMG_9677.webp'], serviceTags: ['Cat Boarding', 'Pet Cab', 'Pet Events'] },
+        { city: 'Bangalore', name: 'Poochkoo Koramangala', address: 'Koramangala, Bengaluru, Karnataka (edit with exact address)', mapLink: 'https://maps.app.goo.gl/andh96VLuaL34Kfe8', reviewLink: 'https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+Koramangala/@12.9357272,77.6142252,962m/data=!3m1!1e3!4m8!3m7!1s0x3bae15b0a542d69b:0xc8c5b0fb094642c2!8m2!3d12.935722!4d77.6168001!9m1!1b1!16s%2Fg%2F11xp7r4y_p!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '4.9', reviews: '60', phone: '+91 63661 23609', whatsapp: 'https://wa.me/916366123609', photos: ['uploads/IMG_9626.webp', 'uploads/WhatsApp Image 2025-11-22 at 4.02.25 PM.webp', 'uploads/WhatsApp Image 2025-11-22 at 4.02.27 PM.webp', 'uploads/WhatsApp Image 2025-11-22 at 4.02.29 PM.webp', 'uploads/IMG_9621.jpg'], serviceTags: ['Dog Boarding', 'Day Care', 'Grooming', 'Bark Park', 'Pet Cab', 'Pet Events'] },
+        { city: 'Bangalore', name: 'Poochkoo RT Nagar', address: 'RT Nagar, Bengaluru, Karnataka (edit with exact address)', mapLink: 'https://maps.app.goo.gl/18z8Y9MGvFuwNAnA9', reviewLink: 'https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+RT+Nagar/@13.0266528,77.5899536,961m/data=!3m1!1e3!4m8!3m7!1s0x3bae17320d363411:0x791a21848e6ec6b2!8m2!3d13.0266476!4d77.5925285!9m1!1b1!16s%2Fg%2F11yf4qfw5w!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '5.0', reviews: '96', phone: '+91 73490 61006', whatsapp: 'https://wa.me/917349061006', photos: ['uploads/Main RT Nagar.webp', 'uploads/drive-download-20260721T075829Z-1-001/IMG_9654.webp', 'uploads/drive-download-20260721T075829Z-1-001/WhatsApp Image 2025-11-22 at 3.32.05 PM.webp', 'uploads/drive-download-20260721T075829Z-1-001/WhatsApp Image 2025-11-22 at 3.32.04 PM-2.webp', 'uploads/drive-download-20260721T075829Z-1-001/WhatsApp Image 2025-11-22 at 3.32.04 PM-1.webp', 'uploads/drive-download-20260721T075829Z-1-001/IMG_9667.webp', 'uploads/drive-download-20260721T075829Z-1-001/WhatsApp Image 2025-11-22 at 3.32.03 PM.webp', 'uploads/drive-download-20260721T075829Z-1-001/WhatsApp Image 2025-11-22 at 3.32.04 PM.webp'], serviceTags: ['Dog Boarding', 'Day Care', 'Grooming', 'Bark Park', 'Pet Cab', 'Pet Events'] },
+        { city: 'Bangalore', name: 'Poochkoo Whitefield', address: 'Kannamangala, Bengaluru, Karnataka (edit with exact address)', mapLink: 'https://maps.app.goo.gl/8KtwvsvgBw7V8QYaA', reviewLink: 'https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+Kannamangala/@13.0268818,77.7751308,961m/data=!3m1!1e3!4m8!3m7!1s0xaae893bf16a9fedf:0x519fc859cde12dd0!8m2!3d13.0268766!4d77.7777057!9m1!1b1!16s%2Fg%2F11xmwzbx9c!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '5.0', reviews: '26', phone: '+91 89040 32103', whatsapp: 'https://wa.me/918904032103', photos: ['uploads/drive-download-20260721T222259Z-1-001/1.webp', 'uploads/drive-download-20260721T222259Z-1-001/6.webp', 'uploads/drive-download-20260721T222259Z-1-001/8.webp', 'uploads/drive-download-20260721T222259Z-1-001/9.webp'], serviceTags: ['Dog Boarding', 'Day Care', 'Grooming', 'Bark Park', 'Pet Cab'] },
+        { city: 'Pune', name: 'Poochkoo Pune', address: 'Pune, Maharashtra (edit with exact address)', mapLink: 'https://maps.app.goo.gl/ejzu4hy6MbcLwLor8', reviewLink: 'https://www.google.com/maps/place/Poochkoo+Pet+Wada+MH-12/@18.5550934,73.7166638,935m/data=!3m1!1e3!4m8!3m7!1s0x3bc2bda915b0c86b:0x135a2f38376cf276!8m2!3d18.5550884!4d73.7215347!9m1!1b1!16s%2Fg%2F11vssb6rd0!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '4.8', reviews: '214', phone: '+91 87670 48609', whatsapp: 'https://wa.me/918767048609', photos: ['uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0022.webp', 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0025.webp', 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0084.webp', 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0085.webp', 'uploads/drive-download-20260721T080536Z-1-001/IMG-20240411-WA0193.webp'], serviceTags: ['Dog Boarding', 'Cat Boarding', 'Day Care', 'Grooming', 'Bark Park', 'Pet Cab', 'Pet Events'] },
+        { city: 'Bangalore', name: 'Poochkoo Electronic City', address: 'Electronic City, Bengaluru, Karnataka (edit with exact address)', mapLink: 'https://maps.app.goo.gl/5EHH61Eh6AsAX3hy5', reviewLink: 'https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+Electronic+City/@12.8284951,77.6390599,962m/data=!3m1!1e3!4m8!3m7!1s0x3bae6ba39f54eda7:0x2389d05fa872a3ef!8m2!3d12.8284899!4d77.6416348!9m1!1b1!16s%2Fg%2F11z92zjpgk!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D', rating: '5.0', reviews: '5', phone: '+91 89040 42103', whatsapp: 'https://wa.me/918904042103', photos: ['uploads/WhatsApp Image 2026-07-22 at 3.49.35 AM.webp'], serviceTags: ['Dog Boarding', 'Day Care', 'Grooming', 'Bark Park', 'Pet Cab', 'Pet Events'] },
       ]),
     };
   }

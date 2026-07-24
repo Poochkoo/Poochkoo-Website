@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,7 +9,7 @@
 <x-dc>
 
 <helmet>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CQS01HTGRG"></script>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-CQS01HTGRG"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -17,13 +17,13 @@
     gtag('config', 'G-CQS01HTGRG');
   </script>
   <title>Enquire · Book Dog Boarding, Grooming &amp; Pet Cab with Poochkoo</title>
-  <meta name="description" content="Enquire with Poochkoo for dog & cat boarding, grooming, day care, swimming or pet cab across Bangalore and Pune. Our team replies on WhatsApp or call within the day.">
+  <meta name="description" content="Enquire with Poochkoo for dog &amp; cat boarding, grooming, day care, swimming or pet cab across Bangalore and Pune. Our team replies on WhatsApp or call within the day.">
   <link rel="canonical" href="https://poochkoo.com/enquiry">
   <meta property="og:title" content="Enquire · Poochkoo Pet Care">
   <meta property="og:description" content="Tell us about your pet and we'll get in touch on WhatsApp or call.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://poochkoo.com/enquiry">
-  <meta property="og:image" content="https://poochkoo.com/assets/poochkoo-icon.png">
+  <meta property="og:image" content="https://poochkoo.com/assets/poochkoo-icon.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
@@ -41,28 +41,44 @@
   <header style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.94); backdrop-filter:blur(8px); border-bottom:1px solid #E4D8C4;">
     <div style="max-width:1240px; margin:0 auto; padding:18px 32px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
       <a href="/" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
-        <img src="assets/poochkoo-icon.png" alt="Poochkoo logo" style="width:{{ logoSize }}px; height:{{ logoSize }}px; border-radius:50%; object-fit:cover;">
+        <img src="assets/poochkoo-icon.webp" alt="Poochkoo logo" style="width:{{ logoSize }}px; height:{{ logoSize }}px; border-radius:50%; object-fit:cover;">
         <div style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:{{ logoFontSize }}px; color:{{ accent }}; letter-spacing:0.3px;">Poochkoo</div>
       </a>
-      <nav style="display:flex; align-items:center; gap:4px; flex-wrap:wrap; justify-content:flex-end;" hint-placeholder-count="4">
-        <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="3">
-          <a href="{{ item.href }}" style="{{ item.style }}">{{ item.label }}</a>
-        </sc-for>
-        <div style="position:relative;" onMouseEnter="{{ openBranchMenu }}" onMouseLeave="{{ closeBranchMenu }}">
-          <button onClick="{{ toggleBranchMenu }}" style="{{ branchNavStyle }}">Branches ▾</button>
-          <sc-if value="{{ branchMenuOpen }}" hint-placeholder-val="{{ false }}">
-            <div style="position:absolute; top:100%; right:0; background:#FFFFFF; border:1px solid #E4D8C4; box-shadow:0 12px 32px rgba(27,21,17,0.14); min-width:220px; z-index:60; padding:6px;">
-              <sc-for list="{{ centres }}" as="c" hint-placeholder-count="6">
-                <a href="{{ c.pageUrl }}" style="display:block; padding:10px 14px; font-size:13px; font-weight:600; color:#241C16; border-radius:6px;" style-hover="background:#FBF6EF; color:{{ accent }};">{{ c.name }}</a>
-              </sc-for>
-              <div style="border-top:1px solid #E4D8C4; margin:6px 0 0; padding-top:6px;">
-                <a href="/branches" style="display:block; width:fit-content; text-align:left; padding:10px 14px; font-size:13px; font-weight:700; color:{{ accent }}; border-radius:6px;">View All Branches</a>
+      <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ toggleMobileMenu }}" aria-label="Menu" style="background:none; border:none; font-size:26px; line-height:1; color:#241C16; cursor:pointer; padding:4px 6px;">{{ mobileMenuIcon }}</button>
+      </sc-if>
+      <sc-if value="{{ showDesktopNav }}" hint-placeholder-val="{{ true }}">
+        <nav style="display:flex; align-items:center; gap:4px; flex-wrap:wrap; justify-content:flex-end;" hint-placeholder-count="4">
+          <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="3">
+            <a href="{{ item.href }}" style="{{ item.style }}">{{ item.label }}</a>
+          </sc-for>
+          <div style="position:relative;" onMouseEnter="{{ openBranchMenu }}" onMouseLeave="{{ closeBranchMenu }}">
+            <a href="/branches" onClick="{{ toggleBranchMenu }}" style="{{ branchNavStyle }}; text-decoration:none;">Branches ▾</a>
+            <sc-if value="{{ branchMenuOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute; top:100%; right:0; background:#FFFFFF; border:1px solid #E4D8C4; box-shadow:0 12px 32px rgba(27,21,17,0.14); min-width:220px; z-index:60; padding:6px;">
+                <sc-for list="{{ centres }}" as="c" hint-placeholder-count="6">
+                  <a href="{{ c.pageUrl }}" style="display:block; padding:10px 14px; font-size:13px; font-weight:600; color:#241C16; border-radius:6px;" style-hover="background:#FBF6EF; color:{{ accent }};">{{ c.name }}</a>
+                </sc-for>
+                <div style="border-top:1px solid #E4D8C4; margin:6px 0 0; padding-top:6px;">
+                  <a href="/branches" style="display:block; width:fit-content; text-align:left; padding:10px 14px; font-size:13px; font-weight:700; color:{{ accent }}; border-radius:6px;">View All Branches</a>
+                </div>
               </div>
-            </div>
-          </sc-if>
-        </div>
-      </nav>
+            </sc-if>
+          </div>
+        </nav>
+      </sc-if>
     </div>
+    <sc-if value="{{ mobileMenuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; top:100%; left:0; right:0; background:#FFFFFF; border-bottom:1px solid #E4D8C4; box-shadow:0 12px 32px rgba(27,21,17,0.14); padding:8px 20px 16px; display:flex; flex-direction:column; z-index:59;">
+        <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="3">
+          <a href="{{ item.href }}" onClick="{{ closeMobileMenu }}" style="padding:14px 6px; font-size:15px; font-weight:600; color:#241C16; border-bottom:1px solid #F1E9DA; text-decoration:none;">{{ item.label }}</a>
+        </sc-for>
+        <a href="/branches" onClick="{{ closeMobileMenu }}" style="padding:14px 6px; font-size:15px; font-weight:600; color:#241C16; border-bottom:1px solid #F1E9DA; text-decoration:none;">All Branches</a>
+        <sc-for list="{{ centres }}" as="c" hint-placeholder-count="6">
+          <a href="{{ c.pageUrl }}" onClick="{{ closeMobileMenu }}" style="padding:10px 6px 10px 18px; font-size:13.5px; font-weight:500; color:#6B5D4E; text-decoration:none;">{{ c.name }}</a>
+        </sc-for>
+      </div>
+    </sc-if>
   </header>
 
   <main style="max-width:1140px; margin:0 auto; padding:80px 32px 96px;">
@@ -91,7 +107,7 @@
             </div>
             <div>
               <label style="font-size:12px; font-weight:600; letter-spacing:0.4px; text-transform:uppercase; color:#1B1511; display:block; margin-bottom:8px;">Service needed</label>
-              <select onChange="{{ onServiceChange }}" style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; background:transparent;">
+              <select onChange="{{ onServiceChange }}" aria-label="Service needed" style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; background:transparent;">
                 <option value="" selected="{{ true }}" disabled="{{ true }}">Select a service</option>
                 <option>Boarding</option>
                 <option>Grooming</option>
@@ -104,7 +120,7 @@
           <div style="display:grid; grid-template-columns:{{ gridCols2 }}; gap:18px;">
             <div>
               <label style="font-size:12px; font-weight:600; letter-spacing:0.4px; text-transform:uppercase; color:#1B1511; display:block; margin-bottom:8px;">Preferred centre</label>
-              <select onChange="{{ onCentreChange }}" style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; background:transparent;">
+              <select onChange="{{ onCentreChange }}" aria-label="Preferred centre" style="width:100%; padding:12px 4px; border:none; border-bottom:1.5px solid #C9BBA3; border-radius:0; font-size:14.5px; font-family:inherit; background:transparent;">
                 <option value="" selected="{{ true }}" disabled="{{ true }}">Select a centre</option>
                 <sc-for list="{{ centres }}" as="c" hint-placeholder-count="5">
                   <option>{{ c.name }}</option>
@@ -121,7 +137,7 @@
       </sc-if>
       <sc-if value="{{ enquirySubmitted }}" hint-placeholder-val="{{ false }}">
         <div style="background:#FFFFFF; padding:56px 40px; text-align:center; display:flex; flex-direction:column; justify-content:center;">
-          <div style="font-family:'Bricolage Grotesque',sans-serif; font-size:40px; color:#A9812F; margin-bottom:18px;">"</div>
+          
           <h2 style="font-family:'Bricolage Grotesque',sans-serif; font-size:22px; font-weight:600; margin:0 0 12px; color:{{ accent }};">Thank you</h2>
           <p style="font-size:14.5px; color:#6B5D4E; margin:0;">We've received your enquiry and will reach out shortly on WhatsApp or call.</p>
         </div>
@@ -142,7 +158,7 @@
         </div>
         <div>
           <h3 style="font-family:'Bricolage Grotesque',sans-serif; font-size:14px; font-weight:600; margin:0 0 12px; color:#FBF6EF;">Poochkoo HQ</h3>
-          <iframe src="https://www.google.com/maps?q=Poochkoo+-+Pet+Care,+Indiranagar,12.9745421,77.6412598&amp;output=embed" style="width:100%; height:160px; border:none; border-radius:4px;" loading="lazy"></iframe>
+          <iframe src="https://www.google.com/maps?q=Poochkoo+-+Pet+Care,+Indiranagar,12.9745421,77.6412598&amp;output=embed" title="Poochkoo HQ location map" style="width:100%; height:160px; border:none; border-radius:4px;" loading="lazy"></iframe>
         </div>
       </div>
     </div>
@@ -152,7 +168,7 @@
   <footer style="background:{{ accent }}; padding:18px 32px 24px; position:relative; text-align:center;">
     <div style="max-width:1240px; margin:0 auto;">
       <div style="width:108px; height:108px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin:-70px auto 16px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
-        <img src="assets/poochkoo-icon.png" alt="Poochkoo logo" style="width:86px; height:86px; border-radius:50%; object-fit:cover;">
+        <img src="assets/poochkoo-icon.webp" alt="Poochkoo logo" style="width:86px; height:86px; border-radius:50%; object-fit:cover;">
       </div>
       <h4 style="color:#FBF6EF; font-size:9.5px; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin:0 0 8px;">Reach Us</h4>
       <div style="color:#FBF6EF; font-size:11px; line-height:1.7;">+91 73490 61004 &nbsp;·&nbsp; hello@poochkoo.com<br>2A, #60, Century Apartments, 100 Feet Road, Indiranagar,&nbsp;Bengaluru, Karnataka, 560038</div>
@@ -165,6 +181,7 @@
 class Component extends DCLogic {
   state = {
     branchMenuOpen: false,
+    mobileMenuOpen: false,
     enquirySubmitted: false,
     isMobile: typeof window !== 'undefined' && window.innerWidth <= 720,
   };
@@ -178,6 +195,8 @@ class Component extends DCLogic {
   toggleBranchMenu = () => this.setState(s => ({ branchMenuOpen: !s.branchMenuOpen }));
   openBranchMenu = () => this.setState({ branchMenuOpen: true });
   closeBranchMenu = () => this.setState({ branchMenuOpen: false });
+  toggleMobileMenu = () => this.setState(s => ({ mobileMenuOpen: !s.mobileMenuOpen }));
+  closeMobileMenu = () => this.setState({ mobileMenuOpen: false });
   centres = [
     { name: 'Poochkoo Indiranagar' }, { name: 'Poochkoo Koramangala' }, { name: 'Poochkoo RT Nagar' },
     { name: 'Poochkoo Whitefield' }, { name: 'Poochkoo Pune' }, { name: 'Poochkoo Electronic City' },
@@ -225,6 +244,11 @@ class Component extends DCLogic {
     const navStyle = (active) => `background:none; border:none; padding:${isMobile ? '6px 8px' : '10px 16px'}; font-weight:600; font-size:${isMobile ? '12px' : '13.5px'}; letter-spacing:0.2px; cursor:pointer; color:${active ? accent : '#241C16'}; border-bottom:${active ? '2px solid ' + accent : '2px solid transparent'}; display:inline-block;`;
     return {
       accent, isMobile,
+      showDesktopNav: !isMobile,
+      mobileMenuOpen: this.state.mobileMenuOpen,
+      mobileMenuIcon: this.state.mobileMenuOpen ? '✕' : '☰',
+      toggleMobileMenu: this.toggleMobileMenu,
+      closeMobileMenu: this.closeMobileMenu,
       logoSize: isMobile ? 38 : 52,
       logoFontSize: isMobile ? 17 : 21,
       gridCols2: isMobile ? '1fr' : '1fr 1fr',
@@ -236,7 +260,7 @@ class Component extends DCLogic {
         { label: 'About Us', href: '/about', style: navStyle(false) },
         { label: 'Enquiry', href: '/enquiry', style: navStyle(true) },
       ],
-      branchNavStyle: `background:none; border:none; padding:${isMobile ? '6px 8px' : '10px 16px'}; font-weight:600; font-size:${isMobile ? '12px' : '13.5px'}; letter-spacing:0.2px; cursor:pointer; color:#241C16; border-bottom:2px solid transparent; white-space:nowrap;`,
+      branchNavStyle: `background:none; border:none; padding:${isMobile ? '6px 8px' : '10px 16px'}; font-weight:600; font-size:${isMobile ? '12px' : '13.5px'}; letter-spacing:0.2px; cursor:pointer; color:#241C16; border-bottom:2px solid transparent; white-space:nowrap; display:inline-block; font-family:inherit;`,
       branchMenuOpen: this.state.branchMenuOpen,
       openBranchMenu: isMobile ? (() => {}) : this.openBranchMenu,
       closeBranchMenu: isMobile ? (() => {}) : this.closeBranchMenu,
