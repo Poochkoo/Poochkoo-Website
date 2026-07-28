@@ -36,6 +36,8 @@ module.exports = async (req, res) => {
     message: String(body.message || '').trim().slice(0, 2000),
   };
 
+  console.log('enquiry env check', { hasGChat: !!GCHAT_WEBHOOK_URL, hasGForm: !!GFORM_URL });
+
   const tasks = [];
 
   if (GCHAT_WEBHOOK_URL) {
@@ -45,8 +47,13 @@ module.exports = async (req, res) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
         body: JSON.stringify({ text }),
-      }).catch(() => {})
+      }).then(async (r) => {
+        const body = await r.text().catch(() => '');
+        console.log('gchat response', r.status, body.slice(0, 300));
+      }).catch((err) => console.log('gchat error', err.message))
     );
+  } else {
+    console.log('GCHAT_WEBHOOK_URL not set, skipping Chat notification');
   }
 
   if (GFORM_URL) {
@@ -62,8 +69,11 @@ module.exports = async (req, res) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: params.toString(),
-      }).catch(() => {})
+      }).then((r) => console.log('gform response', r.status))
+        .catch((err) => console.log('gform error', err.message))
     );
+  } else {
+    console.log('GFORM_URL not set, skipping Google Form submission');
   }
 
   await Promise.all(tasks);
