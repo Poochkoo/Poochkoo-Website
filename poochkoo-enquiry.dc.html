@@ -172,6 +172,7 @@
       </div>
       <h4 style="color:#FBF6EF; font-size:9.5px; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin:0 0 8px;">Reach Us</h4>
       <div style="color:#FBF6EF; font-size:11px; line-height:1.7;">+91 73490 61004 &nbsp;·&nbsp; hello@poochkoo.com<br>2A, #60, Century Apartments, 100 Feet Road, Indiranagar,&nbsp;Bengaluru, Karnataka, 560038</div>
+      <div style="font-size:11px;"><a href="/privacy-policy" style="color:#FBF6EF; text-decoration:underline;">Privacy Policy</a> &nbsp;·&nbsp; <a href="/terms" style="color:#FBF6EF; text-decoration:underline;">Terms &amp; Cancellation</a></div>
     </div>
   </footer>
 </div>
@@ -201,9 +202,6 @@ class Component extends DCLogic {
     { name: 'Poochkoo Indiranagar' }, { name: 'Poochkoo Koramangala' }, { name: 'Poochkoo RT Nagar' },
     { name: 'Poochkoo Whitefield' }, { name: 'Poochkoo Pune' }, { name: 'Poochkoo Electronic City' },
   ];
-  GCHAT_WEBHOOK = 'https://chat.googleapis.com/v1/spaces/AAAAi8y7A2A/messages?key=AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI&token=sHKKxYm3Wa0JeGr8EmXIzSDr8C9sQ8OC_-RewMiVozc';
-  GFORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSf0vB04-FTU-lm2lERBZdIEgs15ocBUPNbhvZzRvebQx-mJRA/formResponse';
-  GFORM_ENTRIES = { name: 'entry.1261291780', phone: 'entry.206604723', petName: 'entry.351771611', service: 'entry.1226167323', centre: 'entry.1937026452', message: 'entry.287525320' };
   formVals = { name: '', phone: '', petName: '', service: '', centre: '', message: '' };
   onNameChange = (e) => { this.formVals.name = e.target.value; };
   onPhoneChange = (e) => { this.formVals.phone = e.target.value; };
@@ -214,26 +212,13 @@ class Component extends DCLogic {
   handleEnquirySubmit = (e) => {
     e.preventDefault();
     const f = this.formVals;
-    const text = `🐾 New Poochkoo Enquiry\nName: ${f.name.trim() || '-'}\nPhone: ${f.phone.trim() || '-'}\nPet: ${f.petName.trim() || '-'}\nService: ${f.service.trim() || '-'}\nCentre: ${f.centre.trim() || '-'}\nMessage: ${f.message.trim() || '-'}`;
-    fetch(this.GCHAT_WEBHOOK, {
+    fetch('/api/enquiry', {
       method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ text }),
-    }).catch(() => {});
-    const en = this.GFORM_ENTRIES;
-    const params = new URLSearchParams();
-    params.append(en.name, f.name.trim());
-    params.append(en.phone, f.phone.trim());
-    params.append(en.petName, f.petName.trim());
-    params.append(en.service, f.service.trim());
-    params.append(en.centre, f.centre.trim());
-    params.append(en.message, f.message.trim());
-    fetch(this.GFORM_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params.toString(),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: f.name.trim(), phone: f.phone.trim(), petName: f.petName.trim(),
+        service: f.service.trim(), centre: f.centre.trim(), message: f.message.trim(),
+      }),
     }).catch(() => {});
     this.setState({ enquirySubmitted: true });
   };

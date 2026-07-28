@@ -43,25 +43,63 @@
         <img src="assets/poochkoo-icon.webp" alt="Poochkoo logo" style="width:52px; height:52px; border-radius:50%; object-fit:cover;">
         <span style="font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:21px; color:#C0181C; letter-spacing:0.3px;">Poochkoo</span>
       </a>
-      <a href="/enquiry" style="background:#C0181C; color:#fff; padding:11px 22px; border-radius:999px; font-weight:600; font-size:13px; text-transform:uppercase;">Enquire Now</a>
+      <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ toggleMobileMenu }}" aria-label="Menu" style="background:none; border:none; font-size:26px; line-height:1; color:#241C16; cursor:pointer; padding:4px 6px;">{{ mobileMenuIcon }}</button>
+      </sc-if>
+      <sc-if value="{{ showDesktopNav }}" hint-placeholder-val="{{ true }}">
+        <nav style="display:flex; align-items:center; gap:24px;">
+          <a href="/poochkoo-about" style="font-weight:600; font-size:14px; color:#241C16;">About Us</a>
+          <div style="position:relative;" onMouseEnter="{{ openBranchMenu }}" onMouseLeave="{{ closeBranchMenu }}">
+            <a href="/branches" style="font-weight:600; font-size:14px; color:#241C16;">Branches ▾</a>
+            <sc-if value="{{ branchMenuOpen }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute; top:100%; right:0; background:#FFFFFF; border:1px solid #E4D8C4; box-shadow:0 12px 32px rgba(27,21,17,0.14); min-width:200px; z-index:60; padding:6px;">
+                <sc-for list="{{ centres }}" as="c" hint-placeholder-count="6">
+                  <a href="{{ c.pageUrl }}" style="display:block; padding:10px 14px; font-size:13px; font-weight:600; color:#241C16; border-radius:6px;" style-hover="background:#FBF6EF; color:#C0181C;">{{ c.name }}</a>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+          <a href="/enquiry" style="background:#C0181C; color:#fff; padding:11px 22px; border-radius:999px; font-weight:600; font-size:13px; text-transform:uppercase;">Enquire Now</a>
+        </nav>
+      </sc-if>
     </div>
-  </header>
-
-  <main style="max-width:1000px; margin:0 auto; padding:40px 20px 72px;">
-    <div style="background:#1B1511; color:#D9B36B; display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; padding:6px 12px; margin-bottom:18px;">Bangalore</div>
-    <h1 style="font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(26px, 7vw, 38px); font-weight:700; margin:0 0 14px; color:#C0181C;">Poochkoo Indiranagar</h1>
-    <p style="font-size:16px; color:#5C4F42; line-height:1.6; max-width:620px; margin:0 0 28px;">Cage-free cat boarding, pet cab rides and pet events near Indiranagar, Bengaluru — every stay treated like family.</p>
-
-    <div style="width:100%; height:340px; position:relative; overflow:hidden; border-radius:4px; margin-bottom:28px; background:repeating-linear-gradient(135deg, #EFE7D6, #EFE7D6 14px, #E7DBC1 14px, #E7DBC1 28px);">
-      <img src="{{ activePhoto }}" alt="Poochkoo Indiranagar" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-      <button onClick="{{ prevPhoto }}" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); width:38px; height:38px; border-radius:50%; border:none; background:rgba(27,21,17,0.55); color:#fff; font-size:16px; cursor:pointer;">←</button>
-      <button onClick="{{ nextPhoto }}" style="position:absolute; right:12px; top:50%; transform:translateY(-50%); width:38px; height:38px; border-radius:50%; border:none; background:rgba(27,21,17,0.55); color:#fff; font-size:16px; cursor:pointer;">→</button>
-      <div style="position:absolute; bottom:12px; left:0; right:0; display:flex; justify-content:center; gap:6px;">
-        <sc-for list="{{ photoDots }}" as="dot" hint-placeholder-count="3">
-          <span style="width:7px; height:7px; border-radius:50%; background:{{ dot.color }};"></span>
+    <sc-if value="{{ mobileMenuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#FFFFFF; border-bottom:1px solid #E4D8C4; box-shadow:0 12px 32px rgba(27,21,17,0.14); padding:8px 20px 16px; display:flex; flex-direction:column;">
+        <a href="/poochkoo-about" onClick="{{ closeMobileMenu }}" style="padding:14px 6px; font-size:15px; font-weight:600; color:#241C16; border-bottom:1px solid #F1E9DA;">About Us</a>
+        <a href="/branches" onClick="{{ closeMobileMenu }}" style="padding:14px 6px; font-size:15px; font-weight:600; color:#241C16; border-bottom:1px solid #F1E9DA;">All Branches</a>
+        <sc-for list="{{ centres }}" as="c" hint-placeholder-count="6">
+          <a href="{{ c.pageUrl }}" onClick="{{ closeMobileMenu }}" style="padding:10px 6px 10px 18px; font-size:13.5px; font-weight:500; color:#6B5D4E;">{{ c.name }}</a>
         </sc-for>
       </div>
+    </sc-if>
+  </header>
+
+  <main style="max-width:1000px; margin:0 auto; padding:40px 20px 110px;">
+    <div style="background:#1B1511; color:#D9B36B; display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase; padding:6px 12px; margin-bottom:18px;">Bangalore</div>
+    <h1 style="font-family:'Bricolage Grotesque',sans-serif; font-size:clamp(34px, 7vw, 54px); font-weight:800; letter-spacing:-0.5px; margin:0 0 14px; color:#C0181C;">Poochkoo Indiranagar</h1>
+    <p style="font-size:16px; color:#5C4F42; line-height:1.6; max-width:620px; margin:0 0 28px;">Cage-free cat boarding, pet cab rides and pet events near Indiranagar, Bengaluru — every stay treated like family.</p>
+
+    <div onClick="{{ openLightbox }}" style="width:100%; height:440px; position:relative; overflow:hidden; border-radius:4px; margin-bottom:10px; cursor:pointer; background:repeating-linear-gradient(135deg, #EFE7D6, #EFE7D6 14px, #E7DBC1 14px, #E7DBC1 28px);">
+      <img src="{{ activePhoto }}" alt="" aria-hidden="true" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:blur(24px) brightness(0.65); transform:scale(1.15);">
+      <img src="{{ activePhoto }}" alt="Poochkoo Indiranagar" style="position:absolute; inset:0; width:100%; height:100%; object-fit:contain;">
+      <div style="position:absolute; bottom:12px; right:12px; background:rgba(27,21,17,0.6); color:#fff; font-size:12px; font-weight:600; padding:6px 12px; border-radius:999px;">⤢ View all {{ photoCount }} photos</div>
     </div>
+    <div style="display:flex; gap:8px; overflow-x:auto; scroll-snap-type:x mandatory; padding-bottom:6px; margin-bottom:28px; scrollbar-width:none;">
+      <sc-for list="{{ thumbs }}" as="t" hint-placeholder-count="6">
+        <div onClick="{{ t.select }}" style="flex:0 0 92px; height:72px; scroll-snap-align:start; border-radius:4px; overflow:hidden; cursor:pointer; border:2px solid {{ t.borderColor }}; opacity:{{ t.opacity }};">
+          <img src="{{ t.src }}" alt="Poochkoo Indiranagar photo {{ $index }}" style="width:100%; height:100%; object-fit:cover; display:block;">
+        </div>
+      </sc-for>
+    </div>
+    <sc-if value="{{ lightboxOpen }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ closeLightbox }}" style="position:fixed; inset:0; background:rgba(20,14,10,0.92); z-index:200; display:flex; align-items:center; justify-content:center; padding:40px 20px;">
+        <button onClick="{{ closeLightbox }}" style="position:absolute; top:20px; right:24px; width:40px; height:40px; border-radius:50%; border:none; background:rgba(255,255,255,0.12); color:#fff; font-size:18px; cursor:pointer;">✕</button>
+        <div style="position:absolute; top:24px; left:24px; color:#D9B36B; font-size:13px; font-weight:600;">{{ lightboxCounter }}</div>
+        <button onClick="{{ prevPhotoStop }}" style="position:absolute; left:16px; top:50%; transform:translateY(-50%); width:46px; height:46px; border-radius:50%; border:none; background:rgba(255,255,255,0.12); color:#fff; font-size:20px; cursor:pointer;">←</button>
+        <img onClick="{{ stopClick }}" src="{{ activePhoto }}" alt="Poochkoo Indiranagar" style="max-width:100%; max-height:85vh; object-fit:contain; border-radius:4px;">
+        <button onClick="{{ nextPhotoStop }}" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); width:46px; height:46px; border-radius:50%; border:none; background:rgba(255,255,255,0.12); color:#fff; font-size:20px; cursor:pointer;">→</button>
+      </div>
+    </sc-if>
 
     <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:28px;">
       <span style="background:#FBF6EF; border:1px solid #E4D8C4; color:#5C4F3F; font-size:12px; font-weight:600; padding:6px 14px; border-radius:999px;">Cat Boarding</span>
@@ -69,37 +107,97 @@
       <span style="background:#FBF6EF; border:1px solid #E4D8C4; color:#5C4F3F; font-size:12px; font-weight:600; padding:6px 14px; border-radius:999px;">Pet Events</span>
     </div>
 
-    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:24px; margin-bottom:32px;">
-      <div style="border:1px solid #E4D8C4; padding:22px;">
+    <div style="background:#FBF6EF; border:1px solid #E4D8C4; padding:26px 28px; margin-bottom:20px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:20px;">
+      <div>
         <h3 style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:0.4px; color:#A9812F; margin:0 0 12px;">Contact & Location</h3>
-        <p style="font-size:14px; margin:0 0 10px;">📍 Indiranagar, Bengaluru, Karnataka</p>
-        <p style="font-size:14px; margin:0 0 10px;">📞 <a href="tel:+917349061004">+91 73490 61004</a></p>
-        <a href="https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+Indiranagar/@12.9745473,77.6386849,961m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3bae17c5b973948d:0x84d926ed99de6e5!8m2!3d12.9745421!4d77.6412598!16s%2Fg%2F11x8t3vbzt!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600;">★★★★★ 5.0 <span style="text-decoration:underline; color:#5C4F3F;">(12 Google reviews)</span></a>
+        <p style="font-size:14px; margin:0 0 8px;">📍 Indiranagar, Bengaluru, Karnataka</p>
+        <a href="tel:+917349061004" style="display:block; font-size:22px; font-weight:800; color:#C0181C; margin-bottom:16px;">+91 73490 61004</a>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a href="https://wa.me/917349061004" target="_blank" style="display:flex; align-items:center; gap:8px; background:#E8F5EC; color:#1a7a44; padding:11px 20px; border-radius:8px; font-weight:600; font-size:13.5px; transition:background 0.18s ease, transform 0.18s ease;" style-hover="background:#d7eee0; transform:translateY(-1px);"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="" style="width:15px; height:15px;">Chat on WhatsApp</a>
+          <a href="/enquiry" style="background:#F7E3E1; color:#9c1315; padding:11px 24px; border-radius:8px; font-weight:600; font-size:13.5px; transition:background 0.18s ease, transform 0.18s ease;" style-hover="background:#f0d0cd; transform:translateY(-1px);">Book Now</a>
+        </div>
       </div>
-      <div style="border:1px solid #E4D8C4;">
-        <iframe src="https://www.google.com/maps?q=Poochkoo+-+Pet+Care,+Indiranagar,12.9745421,77.6412598&output=embed" style="width:100%; height:100%; min-height:160px; border:none;" loading="lazy"></iframe>
-      </div>
+      <a href="https://www.google.com/maps/place/Poochkoo+-+Pet+Care,+Indiranagar/@12.9745473,77.6386849,961m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3bae17c5b973948d:0x84d926ed99de6e5!8m2!3d12.9745421!4d77.6412598!16s%2Fg%2F11x8t3vbzt!5m1!1e1?entry=ttu&g_ep=EgoyMDI2MDcxNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" style="display:flex; flex-direction:column; align-items:flex-end; gap:2px;">
+        <span style="color:#F7B84F; font-size:22px; letter-spacing:1px;">★★★★★</span>
+        <span style="font-size:26px; font-weight:800; color:#1B1511;">5.0</span>
+        <span style="font-size:12.5px; color:#5C4F3F; text-decoration:underline;">12 Google reviews</span>
+      </a>
     </div>
-
-    <div style="display:flex; gap:12px; flex-wrap:wrap;">
-      <a href="https://wa.me/917349061004" target="_blank" style="display:flex; align-items:center; gap:8px; background:#25D366; color:#fff; padding:14px 26px; border-radius:999px; font-weight:600; font-size:13.5px; text-transform:uppercase;"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" style="width:16px; height:16px;">Chat Now</a>
-      <a href="/enquiry" style="background:#C0181C; color:#fff; padding:14px 26px; border-radius:999px; font-weight:600; font-size:13.5px; text-transform:uppercase;">Book Now</a>
+    <div style="border:1px solid #E4D8C4; height:280px; margin-bottom:32px;">
+      <iframe src="https://www.google.com/maps?q=Poochkoo+-+Pet+Care,+Indiranagar&output=embed" style="width:100%; height:100%; border:none;" loading="lazy" title="Map location of Poochkoo Indiranagar"></iframe>
     </div>
   </main>
+
+  <footer style="background:#C0181C; padding:18px 32px 24px; position:relative; text-align:center;">
+    <div style="max-width:1240px; margin:0 auto;">
+      <div style="width:108px; height:108px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin:-70px auto 16px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+        <img src="assets/poochkoo-icon.webp" alt="Poochkoo logo" style="width:86px; height:86px; border-radius:50%; object-fit:cover;">
+      </div>
+      <h4 style="color:#FBF6EF; font-size:9.5px; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin:0 0 8px;">Reach Us</h4>
+      <div style="color:#FBF6EF; font-size:11px; line-height:1.7;">+91 73490 61004 &nbsp;·&nbsp; hello@poochkoo.com<br>2A, #60, Century Apartments, 100 Feet Road, Indiranagar,&nbsp;Bengaluru, Karnataka, 560038</div>
+      <div style="font-size:11px;"><a href="/privacy-policy" style="color:#FBF6EF; text-decoration:underline;">Privacy Policy</a> &nbsp;·&nbsp; <a href="/terms" style="color:#FBF6EF; text-decoration:underline;">Terms &amp; Cancellation</a></div>
+    </div>
+  </footer>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { idx: 0 };
-  photos = ['uploads/iloveimg-converted-1/IMG_9612.webp', 'uploads/iloveimg-converted-1/IMG_9616.webp', 'uploads/iloveimg-converted-1/IMG_9677.webp'];
+  state = { idx: 0, lightboxOpen: false, isMobile: typeof window !== 'undefined' && window.innerWidth < 720, mobileMenuOpen: false, branchMenuOpen: false };
+  componentDidMount() {
+    this.onResize = () => this.setState({ isMobile: window.innerWidth < 720 });
+    window.addEventListener('resize', this.onResize);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+  }
+  toggleMobileMenu = () => this.setState(s => ({ mobileMenuOpen: !s.mobileMenuOpen }));
+  closeMobileMenu = () => this.setState({ mobileMenuOpen: false });
+  openBranchMenu = () => this.setState({ branchMenuOpen: true });
+  closeBranchMenu = () => this.setState({ branchMenuOpen: false });
+  centres = [
+    { name: 'Poochkoo Indiranagar', pageUrl: 'poochkoo-indiranagar' },
+    { name: 'Poochkoo Koramangala', pageUrl: 'poochkoo-koramangala' },
+    { name: 'Poochkoo RT Nagar', pageUrl: 'poochkoo-rt-nagar' },
+    { name: 'Poochkoo Whitefield', pageUrl: 'poochkoo-whitefield' },
+    { name: 'Poochkoo Pune', pageUrl: 'poochkoo-pune' },
+    { name: 'Poochkoo Electronic City', pageUrl: 'poochkoo-electronic-city' },
+  ];
+  photos = ['uploads/iloveimg-converted-1/IMG_9612.webp','uploads/iloveimg-converted-1/IMG_9616.webp','uploads/iloveimg-converted-1/IMG_9677.webp'];
+  selectPhoto = (i) => this.setState({ idx: i });
   prevPhoto = () => this.setState(s => ({ idx: (s.idx - 1 + this.photos.length) % this.photos.length }));
   nextPhoto = () => this.setState(s => ({ idx: (s.idx + 1) % this.photos.length }));
+  openLightbox = () => this.setState({ lightboxOpen: true });
+  closeLightbox = () => this.setState({ lightboxOpen: false });
+  stopClick = (e) => e.stopPropagation();
+  prevPhotoStop = (e) => { e.stopPropagation(); this.prevPhoto(); };
+  nextPhotoStop = (e) => { e.stopPropagation(); this.nextPhoto(); };
   renderVals() {
     return {
       activePhoto: this.photos[this.state.idx],
-      prevPhoto: this.prevPhoto,
-      nextPhoto: this.nextPhoto,
-      photoDots: this.photos.map((p, i) => ({ color: i === this.state.idx ? '#D9B36B' : 'rgba(255,255,255,0.5)' })),
+      photoCount: this.photos.length,
+      isMobile: this.state.isMobile,
+      showDesktopNav: !this.state.isMobile,
+      mobileMenuIcon: this.state.mobileMenuOpen ? '✕' : '☰',
+      mobileMenuOpen: this.state.mobileMenuOpen,
+      toggleMobileMenu: this.toggleMobileMenu,
+      closeMobileMenu: this.closeMobileMenu,
+      branchMenuOpen: this.state.branchMenuOpen,
+      openBranchMenu: this.openBranchMenu,
+      closeBranchMenu: this.closeBranchMenu,
+      centres: this.centres,
+      lightboxOpen: this.state.lightboxOpen,
+      lightboxCounter: `${this.state.idx + 1} / ${this.photos.length}`,
+      openLightbox: this.openLightbox,
+      closeLightbox: this.closeLightbox,
+      stopClick: this.stopClick,
+      prevPhotoStop: this.prevPhotoStop,
+      nextPhotoStop: this.nextPhotoStop,
+      thumbs: this.photos.map((p, i) => ({
+        src: p,
+        select: () => this.selectPhoto(i),
+        borderColor: i === this.state.idx ? '#C0181C' : 'transparent',
+        opacity: i === this.state.idx ? 1 : 0.72,
+      })),
     };
   }
 }

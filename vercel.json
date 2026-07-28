@@ -1,6 +1,14 @@
 {
   "rewrites": [
     {
+      "source": "/privacy-policy",
+      "destination": "/poochkoo-privacy-policy.dc.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/poochkoo-terms.dc.html"
+    },
+    {
       "source": "/about",
       "destination": "/poochkoo-about.dc.html"
     },
