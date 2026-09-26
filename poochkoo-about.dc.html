@@ -32,6 +32,22 @@
     a:hover { color: #4E0D0D; }
     * { box-sizing: border-box; }
   </style>
+  <style>[class^="wa-"],[class*=" wa-"]{box-sizing:content-box !important}.wa-chat-bubble-text{white-space:nowrap !important}</style>
+  <script>
+    (function(){
+      if (window.__watiLoaded) return; window.__watiLoaded = true;
+      var s = document.createElement('script');
+      s.type = 'text/javascript'; s.async = true;
+      s.src = 'https://wati-integration-prod-service.clare.ai/v2/watiWidget.js?78';
+      var options = {
+        "enabled": true,
+        "chatButtonSetting": { "backgroundColor": "#00e785", "ctaText": "Chat with us", "borderRadius": "25", "marginLeft": "0", "marginRight": "20", "marginBottom": "20", "ctaIconWATI": false, "position": "right" },
+        "brandSetting": { "brandName": "Poochkoo", "brandSubTitle": "Typically replies in a few minutes", "brandImg": "https://poochkoo.com/assets/poochkoo-icon.webp", "welcomeText": "Welcome to Poochkoo!\nHow can I help you?", "messageText": "", "backgroundColor": "#00e785", "ctaText": "Chat with us", "borderRadius": "25", "autoShow": false, "phoneNumber": "917349061004" }
+      };
+      s.onload = function(){ CreateWhatsappChatWidget(options); };
+      document.body.appendChild(s);
+    })();
+  </script>
 </helmet>
 
 <div style="font-family:'Bricolage Grotesque',sans-serif; color:#241C16; background:#FFFFFF; min-height:100vh; width:100%; overflow-x:hidden;">
