@@ -43,6 +43,10 @@
     {
       "source": "/poochkoo-electronic-city",
       "destination": "/poochkoo-electronic-city.dc.html"
+    },
+    {
+      "source": "/poochkoo-north-bengaluru",
+      "destination": "/poochkoo-north-bengaluru.dc.html"
     }
   ]
 }
